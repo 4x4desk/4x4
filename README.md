@@ -53,6 +53,10 @@ There is no build step and nothing to install. Each app is plain HTML, CSS and J
 
 Copy [`apps/parts/starter/`](apps/parts/starter/) to `apps/<your-app>/` and build it from the parts. [`apps/parts/README.md`](apps/parts/README.md) lists them, and [`CONTRIBUTING.md`](CONTRIBUTING.md) says how to send it in.
 
+## Contributing
+
+Welcome. [`CONTRIBUTING.md`](CONTRIBUTING.md) says how a change travels. Bugs and app ideas go in [issues](https://github.com/4x4desk/4x4/issues), questions in [Discussions](https://github.com/4x4desk/4x4/discussions).
+
 ## Licence
 
 Code is under the [GNU Affero General Public License v3.0](LICENSE). Documentation and data are under [CC BY-SA 4.0](LICENSE-docs.md).

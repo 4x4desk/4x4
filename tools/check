@@ -1,0 +1,155 @@
+#!/usr/bin/env python3
+"""Check this repository's files: the same check runs on every pull request (.github/workflows/check.yml).
+
+    python3 tools/check
+
+All of these must pass:
+  1. every relative link, src and href in Markdown and HTML (and every import in JS and CSS, every icon and
+     start_url in a manifest.json) resolves to a file in the repository;
+  2. no file over 1 MB, no .DS_Store;
+  3. every .js and .mjs file parses (node --check), when node is installed;
+  4. the labels the issue forms and the triage workflow use are all in .github/labels.yml.
+
+Python 3 only, nothing to install. Prints PASS or FAIL with one line per problem.
+"""
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MAX_BYTES = 1024 * 1024
+SKIP_DIRS = {".git", "node_modules"}
+# Folders made to be copied elsewhere: their links are checked from where a copy goes (a new folder inside the one named).
+TEMPLATES = {"apps/parts/starter": "apps"}
+
+
+def strip_md_code(text):
+    text = re.sub(r"^(```|~~~).*?^\1[^\n]*$", "", text, flags=re.S | re.M)
+    return re.sub(r"`[^`\n]*`", "", text)
+
+
+def refs(path, text):
+    """The relative references a file makes: (what it says, the file it must be)."""
+    ext = os.path.splitext(path)[1].lower()
+    found = []
+    if ext == ".md":
+        body = strip_md_code(text)
+        found += re.findall(r"!?\[[^\]]*\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)", body)
+        found += re.findall(r"^\s*\[[^\]]+\]:\s*(\S+)", body, flags=re.M)
+        found += re.findall(r"\b(?:src|href)\s*=\s*[\"']([^\"']+)[\"']", body)
+    elif ext in (".html", ".htm"):
+        body = re.sub(r"<!--.*?-->", "", text, flags=re.S)
+        found += re.findall(r"\b(?:src|href)\s*=\s*[\"']([^\"']+)[\"']", body)
+    elif ext in (".js", ".mjs"):
+        found += re.findall(r"^\s*import\s[^'\"]*?from\s*['\"]([^'\"]+)['\"]", text, flags=re.M)
+        found += re.findall(r"^\s*import\s*['\"]([^'\"]+)['\"]", text, flags=re.M)
+    elif ext == ".css":
+        body = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+        found += re.findall(r"@import\s+(?:url\()?\s*[\"']?([^\"')\s;]+)", body)
+        found += re.findall(r"url\(\s*[\"']?([^\"')]+)[\"']?\s*\)", body)
+    elif os.path.basename(path) == "manifest.json":
+        try:
+            data = json.loads(text)
+        except ValueError:
+            return [("(not valid JSON)", None)]
+        found += [i.get("src", "") for i in data.get("icons", []) if isinstance(i, dict)]
+        if data.get("start_url"):
+            found.append(data["start_url"])
+    out = []
+    for r in found:
+        if re.match(r"^([a-z][a-z0-9+.-]*:|#|//)", r, re.I) or "${" in r:
+            continue   # a full address, an anchor on the page, or a template filled at run time
+        target = r.split("#")[0].split("?")[0]
+        if not target:
+            continue
+        if target.startswith("/"):
+            out.append((r, os.path.normpath(os.path.join(ROOT, target.lstrip("/")))))
+            continue
+        here = os.path.dirname(path)
+        for tpl, into in TEMPLATES.items():
+            if path.startswith(tpl + "/"):
+                copy = os.path.join(into, "a-new-app")
+                rel = os.path.normpath(os.path.join(copy, os.path.relpath(here, tpl), target))
+                if rel == copy or rel.startswith(copy + "/"):   # inside the copy: the template's own file
+                    rel = os.path.join(tpl, os.path.relpath(rel, copy))
+                out.append((r, os.path.normpath(os.path.join(ROOT, rel))))
+                break
+        else:
+            out.append((r, os.path.normpath(os.path.join(ROOT, here, target))))
+    return out
+
+
+def label_names(text):
+    return re.findall(r"^\s*-\s*name:\s*\"([^\"]+)\"", text, flags=re.M)
+
+
+def check_labels(problems):
+    """Every label an issue form or the triage workflow uses is defined in .github/labels.yml."""
+    path = os.path.join(ROOT, ".github", "labels.yml")
+    if not os.path.isfile(path):
+        return
+    known = set(label_names(open(path, encoding="utf-8").read()))
+    forms = os.path.join(ROOT, ".github", "ISSUE_TEMPLATE")
+    for name in sorted(os.listdir(forms)) if os.path.isdir(forms) else []:
+        text = open(os.path.join(forms, name), encoding="utf-8").read()
+        m = re.search(r"^labels:\s*\[(.*)\]", text, flags=re.M)
+        for label in re.findall(r"\"([^\"]+)\"", m.group(1)) if m else []:
+            if label not in known:
+                problems.append(f".github/ISSUE_TEMPLATE/{name}: label {label!r} is not in .github/labels.yml")
+    triage = os.path.join(ROOT, ".github", "workflows", "triage.yml")
+    if os.path.isfile(triage):
+        text = open(triage, encoding="utf-8").read()
+        for key in ("AI_LABELS", "ALWAYS_LABELS"):
+            m = re.search(rf"^\s*{key}:\s*\"([^\"]*)\"", text, flags=re.M)
+            for label in (s.strip() for s in m.group(1).split(",")) if m else []:
+                if label and label not in known:
+                    problems.append(f".github/workflows/triage.yml: {key} label {label!r} is not in .github/labels.yml")
+
+
+def main():
+    problems, files = [], []
+    for d, dirs, names in os.walk(ROOT):
+        dirs[:] = [x for x in dirs if x not in SKIP_DIRS]
+        files += [os.path.relpath(os.path.join(d, n), ROOT) for n in names]
+    node = shutil.which("node")
+    for rel in sorted(files):
+        full = os.path.join(ROOT, rel)
+        if os.path.basename(rel) == ".DS_Store":
+            problems.append(f"{rel}: a .DS_Store")
+            continue
+        if os.path.getsize(full) > MAX_BYTES:
+            problems.append(f"{rel}: over 1 MB ({os.path.getsize(full)} bytes)")
+        ext = os.path.splitext(rel)[1].lower()
+        if ext in (".js", ".mjs") and node:
+            r = subprocess.run([node, "--check", full], capture_output=True, text=True)
+            if r.returncode:
+                lines = r.stderr.strip().splitlines()
+                why = next((l for l in lines if "Error" in l), lines[0] if lines else "(no message)")
+                problems.append(f"{rel}: does not parse ({why.strip()})")
+        try:
+            text = open(full, encoding="utf-8").read()
+        except (UnicodeDecodeError, OSError):
+            continue
+        for said, target in refs(rel, text):
+            if target is None:
+                problems.append(f"{rel}: {said}")
+            elif not (target == ROOT or target.startswith(ROOT + os.sep)):
+                problems.append(f"{rel}: {said} points outside the repository")
+            elif not os.path.exists(target):
+                problems.append(f"{rel}: {said} is not in the repository")
+    check_labels(problems)
+    print(f"{len(files)} files checked" + ("" if node else " (node not found: JavaScript syntax not checked)"))
+    if problems:
+        print(f"\nFAIL: {len(problems)} problem{'s' if len(problems) != 1 else ''}")
+        for p in problems:
+            print(f"  {p}")
+        sys.exit(1)
+    print("PASS: every link resolves, no file over 1 MB, no .DS_Store" + (", every script parses" if node else "")
+          + ", every label is defined")
+
+
+if __name__ == "__main__":
+    main()

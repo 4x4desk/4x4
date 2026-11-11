@@ -1,0 +1,40 @@
+name: Bug
+description: Something in this repository doesn't work as it should.
+labels: ["bug", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time. Please look through the open issues first, in case it's already there.
+        A security problem goes to security@4x4desk.app instead, not to a public issue.
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened
+      description: What you saw. A screenshot helps.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to see it
+      description: From a fresh clone, served with `python3 -m http.server 8000`.
+      placeholder: |
+        1. Open http://localhost:8000/apps/calculator/
+        2. Press …
+        3. See …
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: System
+      description: Browser and its version, operating system, light or dark.
+    validations:
+      required: true

@@ -1,0 +1,29 @@
+name: App idea
+description: An app you'd like to see on the desk.
+labels: ["app idea", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every app on the desk is one folder of plain files, often an open source app cut down to what a person needs.
+        If you'd like to build it yourself, use "Offer an essence app" instead.
+  - type: textarea
+    id: purpose
+    attributes:
+      label: What it's for
+      description: Who would use it, and what they'd do with it.
+    validations:
+      required: true
+  - type: textarea
+    id: start
+    attributes:
+      label: An open source project it could start from
+      description: Its name and link, and its licence if you know it. Leave empty if you don't know one.
+    validations:
+      required: false
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else
+    validations:
+      required: false

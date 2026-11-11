@@ -1,0 +1,46 @@
+# The labels this repository uses. A maintainer applies them to GitHub with `gh label create --force`,
+# one per label. Keep to this shape: one `- name:` line, then `color:` and
+# `description:`, every value in double quotes. tools/check reads it to make sure the issue forms and the
+# triage workflow only use labels defined here.
+
+# What an issue is about
+- name: "bug"
+  color: "d73a4a"
+  description: "Something doesn't work as it should"
+- name: "app idea"
+  color: "1d76db"
+  description: "An app someone would like to see"
+- name: "essence app"
+  color: "0e8a16"
+  description: "Someone offers to build an app cut down to its essence"
+- name: "parts"
+  color: "c5def5"
+  description: "The shared parts every app is built from"
+- name: "contracts"
+  color: "5319e7"
+  description: "The promises the layers keep to each other; changes get a longer look"
+- name: "docs"
+  color: "0075ca"
+  description: "READMEs and other writing"
+
+# Where it stands
+- name: "needs triage"
+  color: "fbca04"
+  description: "Waiting for a person to read it"
+- name: "needs info"
+  color: "f9d0c4"
+  description: "Waiting for more detail from whoever opened it"
+- name: "ready"
+  color: "0e8a16"
+  description: "Clear enough to start work on"
+- name: "good first issue"
+  color: "7057ff"
+  description: "A good place to start in this repository"
+- name: "help wanted"
+  color: "008672"
+  description: "Open for anyone to take on"
+
+# Who has looked
+- name: "ai triaged"
+  color: "ededed"
+  description: "An AI helper gave it a first look; a person still follows"
