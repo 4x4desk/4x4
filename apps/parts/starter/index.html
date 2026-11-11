@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My app</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../parts/parts.css">
+<script type="module" src="../parts/parts.js"></script>
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<!-- A new app starts here: copy this folder to apps/<your-app>/ (apps/parts/README.md). -->
+<app-page>
+  <app-bar>
+    <h1>My app</h1>
+    <bar-end><button primary id="add">Add one</button></bar-end>
+  </app-bar>
+  <app-body>
+    <app-list id="things" hidden></app-list>
+    <app-empty id="empty">
+      <h2>Nothing here yet</h2>
+      <p>Add the first one to get going.</p>
+    </app-empty>
+  </app-body>
+</app-page>
+</body>
+</html>

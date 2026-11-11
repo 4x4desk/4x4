@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculator</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../parts/parts.css">
+<link rel="stylesheet" href="calculator.css">
+<script type="module" src="../parts/parts.js"></script>
+</head>
+<body>
+<number-screen>
+  <sum-line aria-hidden="true"></sum-line>
+  <output aria-live="polite" aria-label="Result">0</output>
+</number-screen>
+<key-pad role="group" aria-label="Keys">
+  <button type="button" data-key="clear" class="soft">AC</button>
+  <button type="button" data-key="negate" class="soft" aria-label="Plus or minus">±</button>
+  <button type="button" data-key="percent" class="soft" aria-label="Percent">%</button>
+  <button type="button" data-key="/" class="op" aria-label="Divide">÷</button>
+  <button type="button" data-key="7">7</button>
+  <button type="button" data-key="8">8</button>
+  <button type="button" data-key="9">9</button>
+  <button type="button" data-key="*" class="op" aria-label="Times">×</button>
+  <button type="button" data-key="4">4</button>
+  <button type="button" data-key="5">5</button>
+  <button type="button" data-key="6">6</button>
+  <button type="button" data-key="-" class="op" aria-label="Minus">−</button>
+  <button type="button" data-key="1">1</button>
+  <button type="button" data-key="2">2</button>
+  <button type="button" data-key="3">3</button>
+  <button type="button" data-key="+" class="op" aria-label="Plus">+</button>
+  <button type="button" data-key="0" class="wide">0</button>
+  <button type="button" data-key="." aria-label="Point">.</button>
+  <button type="button" data-key="=" primary aria-label="Equals">=</button>
+</key-pad>
+<paper-tape aria-label="Earlier sums">
+  <h2>Tape</h2>
+  <ol></ol>
+  <p class="empty">Each sum you finish lands here. Press one to use its answer.</p>
+</paper-tape>
+<!-- a classic script at the end of the page, so it runs before parts.js (a module, run after parsing) says ready:
+     the host's share and press messages answer that, and the calculator must be listening by then -->
+<script src="calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+/* The parts every 4x4 app is built from (apps/parts/README.md). One file, linked by each app:
+     <link rel="stylesheet" href="../parts/parts.css">
+     <script type="module" src="../parts/parts.js"></script>
+   Colours and sizes are the look file's (look.css, generated from the design tokens): in a zone the host sends its own values
+   (parts.js), opened on its own the app draws with these. Every length is calc(N * var(--u)) and every text
+   calc(N * var(--t)), so the person's Everything and Text sizes scale it; no text is under 16px.
+   Native controls stay native (button, input, select): a part styles them, it doesn't replace them. Layout parts are
+   plain elements named for what they are (app-page, app-bar, app-cards…), with attributes for their states.
+   Everything sits in the cascade layer `parts`, so an app's own CSS, and any widget's it brings along (a map
+   library's buttons), wins over a part without a fight of selectors. */
+@import "look.css";
+
+@layer parts {
+[hidden] { display: none !important; }   /* hidden means hidden, whatever a part's display is */
+
+:root { color-scheme: var(--scheme, light); --hue: var(--accent); --gap: calc(14 * var(--u)); --pad: calc(24 * var(--u)); }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+html[alone] { background: var(--bg); }   /* opened on its own, not in a zone */
+/* nothing shown until the host's look has come (or a moment has passed): it never flashes its own colours first */
+html:not([looked]) body { opacity: 0; }
+html:not([looked]) * { transition: none !important; }
+body {
+  font: calc(19 * var(--t))/1.45 var(--font); color: var(--ink); background: transparent;   /* in a zone: the zone's own surface */
+  transition: opacity .15s; -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p { margin: 0; }
+h1 { font: 600 calc(30 * var(--t))/1.15 var(--font); letter-spacing: -0.01em; }
+h2 { font: 600 calc(23 * var(--t))/1.2 var(--font); }
+h3 { font: 600 calc(19 * var(--t))/1.3 var(--font); }
+[quiet], small { color: var(--muted); font-size: max(16px, calc(17 * var(--t))); }   /* quiet, not small */
+a { color: var(--accent); text-underline-offset: .18em; }
+:focus-visible { outline: var(--ring) solid var(--focus); outline-offset: 2px; }
+::selection { background: color-mix(in oklab, var(--hue) 30%, transparent); }
+
+/* ---- the page: a bar on top when it has one, then what scrolls ---- */
+app-page { display: grid; grid-template-rows: auto minmax(0, 1fr); height: 100%; }
+app-page > :only-child { grid-row: 1 / -1; }
+app-bar {
+  display: flex; align-items: center; gap: var(--gap); min-height: calc(64 * var(--u));
+  padding: calc(12 * var(--u)) var(--pad); border-bottom: var(--hair) solid var(--line);
+}
+app-bar > h1 { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+app-bar > bar-end, app-row > row-end { display: flex; align-items: center; gap: calc(10 * var(--u)); margin-left: auto; }
+app-body { display: flex; flex-direction: column; gap: calc(22 * var(--u)); padding: var(--pad); overflow: auto; min-height: 0; }
+app-body[centre] { align-items: center; justify-content: center; text-align: center; }
+
+/* ---- buttons: quiet by default; one [primary] per screen; [danger] for what can't be taken back ---- */
+button, a[button] {
+  display: inline-flex; align-items: center; justify-content: center; gap: calc(9 * var(--u));
+  min-height: calc(46 * var(--u)); padding: calc(9 * var(--u)) calc(20 * var(--u));
+  font: 550 calc(18 * var(--t))/1.2 var(--font); color: var(--ink); text-decoration: none;
+  background: var(--wash-soft); border: var(--hair) solid var(--line); border-radius: var(--radius);
+  cursor: pointer; transition: background .12s, transform .08s, box-shadow .12s;
+}
+button:hover, a[button]:hover { background: var(--wash-strong); }
+button:active, a[button]:active { transform: scale(.97); }
+button[primary] { color: var(--accent-ink); background: var(--hue); border-color: transparent; box-shadow: 0 calc(2 * var(--u)) calc(10 * var(--u)) color-mix(in oklab, var(--hue) 35%, transparent); }
+button[primary]:hover { background: color-mix(in oklab, var(--hue) 88%, var(--ink)); }
+button[danger] { color: var(--bad); border-color: color-mix(in oklab, var(--bad) 45%, transparent); }
+button[danger]:hover { color: var(--accent-ink); background: var(--bad); }
+button[bare] { background: none; border-color: transparent; }
+button[bare]:hover { background: var(--wash-hover); }
+button[big] { min-height: calc(60 * var(--u)); padding-inline: calc(30 * var(--u)); font-size: calc(21 * var(--t)); }
+button[icon] { width: calc(46 * var(--u)); padding: 0; }
+button svg, a[button] svg { width: calc(22 * var(--u)); height: calc(22 * var(--u)); flex: none; }
+button:disabled { opacity: .45; cursor: default; transform: none; }
+/* a chip: a small choice among several in a row; [current] when it's the one picked */
+button[chip] { min-height: calc(38 * var(--u)); padding: calc(5 * var(--u)) calc(15 * var(--u)); border-radius: 99px; font: 500 max(16px, calc(17 * var(--t)))/1.2 var(--font); }
+button[chip][current] { color: var(--accent-ink); background: var(--hue); border-color: transparent; }
+
+/* ---- fields: a label over its control ---- */
+app-field { display: grid; gap: calc(7 * var(--u)); }
+app-field > span, app-field > label { font-weight: 550; }
+/* the label beside its control, in one line: <app-field inline> */
+app-field[inline] { display: inline-flex; align-items: center; gap: calc(10 * var(--u)); }
+app-field[inline] > :is(input, select) { width: auto; }
+input:not([type=checkbox], [type=radio], [type=range]), select, textarea {
+  width: 100%; min-height: calc(48 * var(--u)); padding: calc(10 * var(--u)) calc(14 * var(--u));
+  font: calc(19 * var(--t))/1.35 var(--font); color: var(--ink);
+  background: var(--well); border: var(--rule) solid var(--line); border-radius: var(--radius);
+}
+textarea { min-height: calc(120 * var(--u)); resize: vertical; }
+input::placeholder, textarea::placeholder { color: var(--muted); }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none; border-color: var(--focus); box-shadow: 0 0 0 var(--ring) color-mix(in oklab, var(--focus) 40%, transparent); }
+input[type=checkbox], input[type=radio] { width: calc(22 * var(--u)); height: calc(22 * var(--u)); accent-color: var(--hue); }
+
+/* a switch: <button role="switch" aria-checked="false">Label</button> (parts.js flips it and says `change`) */
+button[role=switch] { justify-content: space-between; gap: calc(18 * var(--u)); background: none; border-color: transparent; padding-inline: 0; font-weight: 500; text-align: left; }
+button[role=switch]:hover { background: none; }
+button[role=switch]::after {
+  content: ""; flex: none; width: calc(52 * var(--u)); height: calc(30 * var(--u)); border-radius: 99px;
+  background: radial-gradient(circle at calc(15 * var(--u)) 50%, var(--panel) calc(10 * var(--u)), transparent calc(11 * var(--u))) var(--line);
+  transition: background .18s;
+}
+button[role=switch][aria-checked=true]::after { background: radial-gradient(circle at calc(37 * var(--u)) 50%, var(--accent-ink) calc(10 * var(--u)), transparent calc(11 * var(--u))) var(--hue); }
+
+/* ---- tabs: <app-tabs><button tab="a" current>…</button>…</app-tabs> then <app-pane name="a">… ---- */
+app-tabs { display: flex; gap: calc(4 * var(--u)); padding: calc(5 * var(--u)); background: var(--wash-soft); border-radius: calc(var(--radius) + 5 * var(--u)); width: fit-content; max-width: 100%; overflow-x: auto; }
+app-tabs > button { background: none; border-color: transparent; min-height: calc(42 * var(--u)); white-space: nowrap; }
+app-tabs > button[current] { color: var(--accent-ink); background: var(--hue); box-shadow: 0 calc(1 * var(--u)) calc(6 * var(--u)) color-mix(in oklab, var(--hue) 40%, transparent); }
+app-pane { display: flex; flex-direction: column; gap: calc(18 * var(--u)); }
+app-pane:not([current]) { display: none; }
+
+/* ---- a panel: a lifted surface for one subject ---- */
+app-panel { display: flex; flex-direction: column; gap: calc(14 * var(--u)); padding: calc(22 * var(--u)); background: var(--panel); border: var(--hair) solid var(--line); border-radius: calc(var(--radius) + 4 * var(--u)); }
+
+/* ---- cards: big pictured choices, as many as fit; a card is a button when it can be pressed ---- */
+app-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(calc(230 * var(--u)), 1fr)); gap: calc(16 * var(--u)); }
+app-card, button[card] {
+  display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: calc(10 * var(--u));
+  padding: calc(14 * var(--u)); text-align: left; font-weight: 500;
+  background: var(--panel); border: var(--rule) solid var(--line); border-radius: calc(var(--radius) + 4 * var(--u));
+}
+button[card]:hover { background: var(--panel); border-color: var(--hue); transform: translateY(calc(-3 * var(--u))); box-shadow: 0 calc(8 * var(--u)) calc(22 * var(--u)) rgb(var(--dark) / .14); }
+button[card][current] { border-color: var(--hue); box-shadow: 0 0 0 var(--ring) var(--hue); }
+card-picture { display: grid; place-items: center; aspect-ratio: 16 / 10; border-radius: var(--radius); background: color-mix(in oklab, var(--hue) 22%, var(--deep)); color: var(--hue); overflow: hidden; }
+card-picture > img { width: 100%; height: 100%; object-fit: cover; }
+card-picture > svg { width: 38%; height: 38%; }
+app-card strong, button[card] strong { font: 600 calc(20 * var(--t))/1.25 var(--font); }
+
+/* ---- a list of rows: something, what it is, then what can be done with it ---- */
+app-list { display: flex; flex-direction: column; border: var(--hair) solid var(--line); border-radius: calc(var(--radius) + 2 * var(--u)); background: var(--panel); overflow: hidden; }
+app-row { display: flex; align-items: center; gap: var(--gap); min-height: calc(60 * var(--u)); padding: calc(10 * var(--u)) calc(18 * var(--u)); }
+app-row + app-row { border-top: var(--hair) solid var(--line); }
+app-row[press] { cursor: pointer; }
+app-row[press]:hover { background: var(--wash-hover); }
+app-row[current] { background: color-mix(in oklab, var(--hue) 14%, transparent); box-shadow: inset calc(4 * var(--u)) 0 var(--hue); }
+app-row > row-text { display: grid; min-width: 0; flex: 1; }
+app-row > row-text > * { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---- two parts side by side with a splitter the person drags (parts.js); narrow, one under the other ---- */
+app-split { display: grid; grid-template-columns: minmax(calc(220 * var(--u)), var(--split, 34%)) calc(12 * var(--u)) minmax(0, 1fr); height: 100%; min-height: 0; }
+app-split > * { min-width: 0; min-height: 0; overflow: auto; }
+app-split > split-bar { cursor: col-resize; display: grid; place-items: center; overflow: visible; touch-action: none; }
+app-split > split-bar::after { content: ""; width: var(--rule); height: 100%; background: var(--line); transition: width .12s, background .12s; }
+app-split > split-bar:hover::after, app-split > split-bar[dragging]::after, app-split > split-bar:focus-visible::after { width: calc(4 * var(--u)); background: var(--hue); }
+@container (max-width: 700px) { app-split { grid-template-columns: 1fr; height: auto; } app-split > split-bar { display: none; } }
+body { container-type: inline-size; }
+
+/* ---- nothing here yet: say so, large, with the one thing to do ---- */
+app-empty { display: grid; justify-items: center; gap: calc(14 * var(--u)); padding: calc(48 * var(--u)) var(--pad); text-align: center; }
+app-empty > svg { width: calc(72 * var(--u)); height: calc(72 * var(--u)); color: var(--hue); }
+app-empty > h2 { font: 500 calc(30 * var(--t))/1.2 var(--font-display); }
+app-empty > p { max-width: 34em; color: var(--muted); }
+
+/* ---- a meaning: a small coloured word (state only, never decoration) ---- */
+app-tag { display: inline-flex; align-items: center; padding: calc(3 * var(--u)) calc(11 * var(--u)); border-radius: 99px; font: 550 max(16px, calc(16 * var(--t)))/1.3 var(--font); color: var(--tag, var(--muted)); background: color-mix(in oklab, var(--tag, var(--muted)) 16%, transparent); }
+app-tag[ok] { --tag: var(--ok); } app-tag[warn] { --tag: var(--warn); } app-tag[bad] { --tag: var(--bad); } app-tag[info] { --tag: var(--info); }
+
+/* ---- working: a line that moves, so nothing looks stalled ---- */
+app-busy { display: block; height: calc(5 * var(--u)); border-radius: 99px; background: var(--wash-strong); overflow: hidden; }
+app-busy::after { content: ""; display: block; width: 36%; height: 100%; border-radius: inherit; background: var(--hue); animation: app-busy 1.1s ease-in-out infinite alternate; }
+@keyframes app-busy { from { transform: translateX(-20%); } to { transform: translateX(200%); } }
+
+/* ---- every press answered: a line said over the app for a moment (parts.js say()) ---- */
+app-said {
+  position: fixed; left: 50%; bottom: calc(28 * var(--u)); translate: -50% 0; z-index: 10; max-width: calc(100% - 2 * var(--pad));
+  padding: calc(13 * var(--u)) calc(24 * var(--u)); border-radius: 99px; pointer-events: none;
+  font: 600 calc(19 * var(--t))/1.3 var(--font); color: var(--accent-ink); background: var(--said, var(--hue));
+  box-shadow: 0 calc(8 * var(--u)) calc(26 * var(--u)) rgb(var(--dark) / .28); animation: app-said 2.4s both;
+}
+@keyframes app-said { 0% { opacity: 0; transform: translateY(60%) scale(.92); } 9%, 82% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-20%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  app-busy::after { animation: none; width: 100%; opacity: .5; }
+  app-said { animation-name: app-said-still; }
+  @keyframes app-said-still { 0%, 85% { opacity: 1; } 100% { opacity: 0; } }
+}
+}

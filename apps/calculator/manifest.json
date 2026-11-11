@@ -1,0 +1,5 @@
+{
+  "name": "Calculator",
+  "icons": [{ "src": "icon.svg", "type": "image/svg+xml", "sizes": "any" }],
+  "start_url": "index.html"
+}

@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "id": "youtube",
+  "name": "YouTube",
+  "hue": 25,
+  "about": "YouTube with its panel beside it",
+  "docks": {
+    "centre": ["youtube"],
+    "right": ["youtube-panel"]
+  }
+}
