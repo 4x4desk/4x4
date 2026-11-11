@@ -125,6 +125,7 @@ app-row { display: flex; align-items: center; gap: var(--gap); min-height: calc(
 app-row + app-row { border-top: var(--hair) solid var(--line); }
 app-row[press] { cursor: pointer; }
 app-row[press]:hover { background: var(--wash-hover); }
+app-row:focus-visible { outline-offset: calc(-2 * var(--ring)); }   /* inside the row: the list clips what's outside */
 app-row[current] { background: color-mix(in oklab, var(--hue) 14%, transparent); box-shadow: inset calc(4 * var(--u)) 0 var(--hue); }
 app-row > row-text { display: grid; min-width: 0; flex: 1; }
 app-row > row-text > * { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -137,6 +138,14 @@ app-split > split-bar::after { content: ""; width: var(--rule); height: 100%; ba
 app-split > split-bar:hover::after, app-split > split-bar[dragging]::after, app-split > split-bar:focus-visible::after { width: calc(4 * var(--u)); background: var(--hue); }
 @container (max-width: 700px) { app-split { grid-template-columns: 1fr; height: auto; } app-split > split-bar { display: none; } }
 body { container-type: inline-size; }
+/* <app-split turns>: a list and the thing opened from it. Narrow (a zone can be 300 wide), they take turns at the
+   full height: the aside, or the main part when the split says at="main". A [turn-back] button inside goes back to
+   the aside (parts.js); wide, it isn't needed and isn't shown. */
+@container (max-width: 700px) {
+  app-split[turns] { height: 100%; grid-template-rows: minmax(0, 1fr); }
+  app-split[turns][at=main] > aside, app-split[turns]:not([at=main]) > main { display: none; }
+}
+@container (min-width: 701px) { app-split[turns] [turn-back] { display: none; } }
 
 /* ---- nothing here yet: say so, large, with the one thing to do ---- */
 app-empty { display: grid; justify-items: center; gap: calc(14 * var(--u)); padding: calc(48 * var(--u)) var(--pad); text-align: center; }
@@ -161,11 +170,18 @@ app-said {
   box-shadow: 0 calc(8 * var(--u)) calc(26 * var(--u)) rgb(var(--dark) / .28); animation: app-said 2.4s both;
 }
 @keyframes app-said { 0% { opacity: 0; transform: translateY(60%) scale(.92); } 9%, 82% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-20%); } }
+/* with a button on it (say(text, kind, { text: 'Undo', run })): it can be pressed, stays longer, and holds while
+   pointed at or focused */
+app-said[act] { display: flex; align-items: center; gap: calc(16 * var(--u)); padding-block: calc(7 * var(--u)); padding-right: calc(8 * var(--u)); pointer-events: auto; animation: app-said-act 7s both; }
+app-said[act]:is(:hover, :focus-within) { animation-play-state: paused; }
+app-said > button { min-height: calc(40 * var(--u)); padding: calc(6 * var(--u)) calc(18 * var(--u)); border-radius: 99px; color: inherit; font-weight: 650; background: color-mix(in oklab, currentColor 18%, transparent); border-color: color-mix(in oklab, currentColor 35%, transparent); }
+app-said > button:hover { background: color-mix(in oklab, currentColor 30%, transparent); }
+@keyframes app-said-act { 0% { opacity: 0; transform: translateY(60%) scale(.92); } 3%, 93% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-20%); } }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
   app-busy::after { animation: none; width: 100%; opacity: .5; }
-  app-said { animation-name: app-said-still; }
+  app-said, app-said[act] { animation-name: app-said-still; }
   @keyframes app-said-still { 0%, 85% { opacity: 1; } 100% { opacity: 0; } }
 }
 }

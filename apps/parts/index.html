@@ -37,6 +37,7 @@
           <button tab="controls" current>Controls</button>
           <button tab="cards">Cards</button>
           <button tab="states">States</button>
+          <button tab="data">Data</button>
         </app-tabs>
 
         <app-pane name="controls" current>
@@ -71,7 +72,7 @@
             <p><app-tag>Plain</app-tag> <app-tag ok>Saved</app-tag> <app-tag warn>Check this</app-tag> <app-tag bad>Failed</app-tag> <app-tag info>Tip</app-tag></p>
             <h2>Working</h2>
             <app-busy></app-busy>
-            <p><button id="ok">Say it worked</button> <button id="bad">Say it failed</button></p>
+            <p><button id="ok">Say it worked</button> <button id="bad">Say it failed</button> <button id="undo">Say it with Undo</button></p>
           </app-panel>
           <app-panel>
             <app-empty>
@@ -80,6 +81,15 @@
               <p>Say what's missing in a line, then offer the one thing to do about it.</p>
               <button primary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Make the first one</button>
             </app-empty>
+          </app-panel>
+        </app-pane>
+
+        <app-pane name="data">
+          <app-panel>
+            <h2>What an app keeps</h2>
+            <p quiet>Kept on this computer as you type. Reload the page and it's still here; open the page twice and one follows the other.</p>
+            <app-field><span>A line to keep</span><input id="kept" placeholder="Type anything"></app-field>
+            <p><button id="save-copy">Save a copy</button> <button id="bring-copy">Bring a copy in</button> <button danger id="forget">Forget it</button></p>
           </app-panel>
         </app-pane>
       </app-body>

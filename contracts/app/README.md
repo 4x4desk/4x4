@@ -41,6 +41,22 @@ The folder is named `tpa` and the file `tpa.json` after an earlier word for an a
 
 The site core and the installer are not in this repository yet.
 
+## Your own apps
+
+An app the person or their agent makes is a web folder, not a site: an `index.html`, a web app manifest (`manifest.json` with `name`, `icons`, `start_url`, and optionally `description`) and its own files. It starts as a copy of [`apps/parts/starter/`](../../apps/parts/starter/).
+
+```
+<data>/4x4/apps/<id>/     one folder per app; <id> is its name: letters, digits, . _ -
+<data>/4x4/apps/parts/    the parts, as this desk carries them, so ../parts/ links work
+```
+
+`<data>` is the same data folder as for `tpa/`: `$XDG_DATA_HOME`, else `%LOCALAPPDATA%` on Windows, else `~/.local/share`.
+
+- **The person's agent** writes the folder. Nothing else is needed: no compile, no setup script, no server.
+- **The installer** reads the folders when the desk starts, and again each time the person opens Apps or a dock's +. Each folder whose manifest has a name is offered among the person's apps, under Yours, and goes in a zone like any app of ours. The installer never writes into an app's folder and never updates it; it rewrites only `parts/`. A folder whose id is already taken by one of 4x4's apps or an installed site is passed over, with a line in the console.
+- **The desk** shows the folder as a page of its own, with its own container and the host's look, as our own apps get.
+- **Taking it away** from a zone leaves the folder. Deleting the folder takes the app off the docks at the next start.
+
 ## What an app may ask of its host
 
 Each is its own small promise. An app that uses none of them still works.
@@ -49,6 +65,7 @@ Each is its own small promise. An app that uses none of them still works.
 - **Its workspace:** `x4.workspace`, an id, so two apps in one workspace can find each other (a video player and the panel beside it).
 - **The agents' door:** `call` and `page`, for the person's own agent. Not in this repository yet.
 - **Our own pages:** a folder with a web app manifest ([`apps/calculator/README.md`](../../apps/calculator/README.md) › The folder format).
+- **Data:** what the app keeps, on this computer, kept apart from every other app's ([`apps/parts/README.md`](../../apps/parts/README.md#what-an-app-keeps-data) › What an app keeps). It is saved as the person works, and Save a copy and Bring a copy in move all of it as one file. It is not synced and not shared between computers, and clearing the desk's site data clears it.
 - **The parts:** one shared stylesheet and module every app of ours is built from ([`apps/parts/README.md`](../../apps/parts/README.md)): buttons, fields, tabs, cards, lists, a splitter, and a line that answers every press. A new app starts from [`apps/parts/starter/`](../../apps/parts/starter/).
 
 ## Not yet

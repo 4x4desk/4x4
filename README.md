@@ -4,6 +4,8 @@
 Every app is one folder of plain files that the person, and their own AI agent, can read and change.
 It runs on the person's own computer, and what they store stays there.
 
+New here? Start with [the guide](guide/): seven short pages, for people and AI agents alike.
+
 The desk is at [4x4desk.app](https://4x4desk.app). This repository holds the open parts of it that are ready: the contracts the pieces meet through, the shared parts every app is built from, the first app, and a first workspace.
 
 ## The layers
