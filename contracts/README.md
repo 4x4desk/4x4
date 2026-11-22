@@ -23,4 +23,5 @@ Layers 1 and 2 are not in this repository yet. Their side of each contract is de
 ## What's here
 
 - [`app/`](app/): an app on the person's computer: one folder, what's in it, who writes it, how it updates and keeps the person's changes. Version 1, in use in 4x4 AWD Desk.
+- [`recipe/`](recipe/): our changes to a site so it can be an app in a zone: what it may reach, what it may not, how it looks. One shape, a schema and a check. Version 1.
 - [`workspace/`](workspace/): a workspace as one small file: which apps, and where. Version 1, in use in 4x4 AWD Desk.

@@ -1,0 +1,25 @@
+/* Kijiji in the dark, when the desktop is dark. Kijiji has no dark mode and sets its colours as plain hex values
+   (styled-components, hashed class names), so the engine's theme patch turns each into a variable
+   (--x4-<bg|fg|bd|fill|stroke>-<hex>) and this file recolours the palette: Kijiji's purples stay, its whites and
+   greys go dark, its text goes light. Taken from the palette its pages used on 2026-10-22. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    /* surfaces */
+    --x4-bg-ffffff: #15161c; --x4-bg-fff: #15161c; --x4-bg-f8f9f9: #18191f; --x4-bg-f3f3f9: #1c1d26; --x4-bg-f3f3f3: #1c1d22;
+    --x4-bg-ececee: #23242c; --x4-bg-e9e9e9: #26272e; --x4-bg-e2e2e4: #2a2b32; --x4-bg-d2d3d7: #34353f; --x4-bg-ccc: #3a3b42;
+    --x4-bg-cacaea: #36355c;
+    /* notices: green, red, amber, blue */
+    --x4-bg-daefdf: #1d3326; --x4-bg-f4faf5: #1b2a20; --x4-bg-fef4f5: #3a1f23; --x4-bg-fffbf2: #332b1a; --x4-bg-abe2fb: #173a4a;
+    /* text */
+    --x4-fg-3e4153: #d9dae3; --x4-fg-373373: #bdbaf2; --x4-fg-696696: #a9a6d8; --x4-fg-6f727f: #a8aab6; --x4-fg-8e909b: #8f919e;
+    --x4-fg-000: #e8e8ee; --x4-fg-666: #aaaaaa; --x4-fg-999: #8a8a8a; --x4-fg-d2d3d7: #5a5b66; --x4-fg-cacaea: #6d6b9c;
+    /* lines */
+    --x4-bd-d2d3d7: #3a3b45; --x4-bd-ececee: #2c2d36; --x4-bd-e9e9e9: #30313a; --x4-bd-ccc: #44454d; --x4-bd-cacaea: #45446e;
+    --x4-bd-373373: #8a87d0; --x4-bd-daefdf: #2d5a3b; --x4-bd-bae5c6: #2d5a3b; --x4-bd-fabec2: #6a2d34; --x4-bd-f9db91: #6a5520;
+    --x4-bd-ffffff: #15161c;
+    /* icons */
+    --x4-fill-373373: #bdbaf2; --x4-fill-f0f0fc: #262640; --x4-fill-d8d8ef: #33334d;
+  }
+  html { background: #15161c; }
+}

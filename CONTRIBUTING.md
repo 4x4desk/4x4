@@ -16,11 +16,11 @@ An essence app is an app cut down to what a person needs, built from the shared 
 
 1. **Pick an app.** An open source app you know, or a tool you use every day. Open an "Offer an essence app" issue to check the idea first.
 2. **Cut it down.** Keep what a person reaches for; leave out the rest.
-3. **Build it from the parts.** Copy [`apps/parts/starter/`](apps/parts/starter/) to `apps/<your-app>/` and follow [`apps/parts/README.md`](apps/parts/README.md). The calculator ([`apps/calculator/`](apps/calculator/)) is a worked example.
+3. **Build it from the parts.** An agent making one is handed [`apps/parts/skill/4x4-app/SKILL.md`](apps/parts/skill/4x4-app/SKILL.md); the [`blueprints`](apps/parts/blueprints/) say how to do common jobs. Copy [`apps/parts/starter/`](apps/parts/starter/) to `apps/<your-app>/` and follow [`apps/parts/README.md`](apps/parts/README.md). The calculator ([`apps/calculator/`](apps/calculator/)) is a worked example.
 4. **Keep the rules an app keeps** ([`apps/calculator/README.md`](apps/calculator/README.md) › The folder format):
    - one folder, with a `manifest.json` (`name`, `icons`, `start_url`), its page and an `icon.svg`;
-   - nothing fetched from anywhere else;
-   - what it stores stays on the person's computer (`localStorage`, IndexedDB);
+   - it reaches nothing outside its folder unless its `manifest.json` lists hosts under `reach`;
+   - what it keeps goes through `data()`, on the person's computer; what it shares goes through `shared()` ([`apps/parts/README.md`](apps/parts/README.md));
    - your own CSS only for what is truly the app's; no text under 16px; check it in light and dark, narrow and wide.
 5. **Write its README:** what it does, what you left out and why, and where it came from.
 

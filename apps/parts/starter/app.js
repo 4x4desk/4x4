@@ -1,7 +1,7 @@
 // My app: what it does, in a line or two. Its parts and its look come from ../parts
 // (../parts/README.md › The parts has every part).
 // What it keeps goes through data(): this app's own box on the person's computer, kept apart from every other
-// app's (blueprints/data-on-this-computer.md). The screen is drawn from the box on its `change`, so another open
+// app's (../parts/blueprints/data-on-this-computer.md). The screen is drawn from the box on its `change`, so another open
 // copy of the app shows the same thing at once.
 // The empty-notice needs no code: it sits right after the list and shows while the list has no rows.
 import { el, say, data } from '../parts/parts.js';

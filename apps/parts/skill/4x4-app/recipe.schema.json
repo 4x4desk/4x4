@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/4x4desk/4x4/contracts/recipe/recipe.schema.json",
+  "title": "4x4 recipe, version 1",
+  "description": "Our changes to a site so it can be an app (contracts/recipe/README.md).",
+  "type": "object",
+  "required": ["id", "name", "home"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "home": { "type": "string", "pattern": "^https://" },
+    "about": { "type": "string" },
+    "allow": { "type": "array", "items": { "type": "string", "pattern": "^[*A-Za-z0-9][*A-Za-z0-9.-]*$" } },
+    "deny": { "type": "array", "items": { "type": "string", "pattern": "^(\\*|https?)://" } },
+    "style": { "type": "array", "items": { "type": "string", "pattern": "^style/[^/]+\\.css$" } },
+    "script": { "type": "array", "items": { "type": "string", "pattern": "^script/[^/]+\\.js$" } },
+    "capture": { "type": "array", "items": { "type": "string", "pattern": "^(\\*|https?)://" } },
+    "patch": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["match"], "additionalProperties": false,
+        "properties": { "match": { "type": "string" }, "theme": { "type": "boolean" }, "find": { "type": "string" }, "replace": { "type": "string" } }
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["match", "do"], "additionalProperties": false,
+        "properties": { "match": { "type": "string" }, "do": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "drm": { "type": "boolean" }
+  }
+}

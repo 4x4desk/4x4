@@ -21,6 +21,8 @@
 //                                        wrote there (Text chat shows every conversation, this one too)
 //   await t.say(text, what = 'say')      one line, kept and sent. A line is never changed or taken back: to tick or
 //                                        remove a thing, say another line about it (what: 'done', text: its key)
+//   await t.file(file, what = 'file')    a File as a line: kept by its hash, its picture at `/api/file/<hash>`; a line's
+//                                        `file` is { hash, name, size } (blueprints/files.md)
 //   t.read()                             the person has seen it: its unread count goes
 //   s.on('change', fn)                   something changed somewhere (a line arrived, a computer came or went):
 //                                        read all() and lines() again. Returns s.
@@ -169,7 +171,7 @@ export async function shared(app = appId()) {
         async lines() {
           return (await get(`/api/talk/${id}`)).lines.map(l => {
             const cmd = String(l.cmd ?? ''), what = cmd.startsWith(word) ? cmd.slice(word.length, cmd.lastIndexOf('.')) : '';
-            return { key: `${l.at}|${l.from}|${cmd}`, from: l.from, mine: !!l.mine, at: l.at, text: String(l.text ?? ''), what };
+            return { key: `${l.at}|${l.from}|${cmd}`, from: l.from, mine: !!l.mine, at: l.at, text: String(l.text ?? ''), what, file: l.file ?? null };
           });
         },
         // the id makes a retry land once; the word in it is how every computer knows what the line is
@@ -179,6 +181,14 @@ export async function shared(app = appId()) {
             if (h.mode === 'present' && !h.mine) throw new Error(`${h.by} is presenting: only ${h.by} changes it now`);
           }
           return post('/api/say', { talk: id, text: String(text), id: `${word}${String(what).replaceAll('.', '-')}.${crypto.randomUUID()}` });
+        },
+        // a file (chosen, dropped or pasted) as a line: kept here by its hash, fetched by every computer of the person's
+        // in the thing (not yet by another person's: _talk/2026-11-20-people-reach.md › Not in this piece)
+        async file(f, what = 'file') {
+          const r = await fetch(`/api/file?name=${encodeURIComponent(f.name || 'file')}`, { method: 'POST', body: f });
+          const v = await r.json().catch(() => ({}));
+          if (!r.ok) throw new Error(v.error || `x4-p2p said ${r.status}`);
+          return post('/api/say', { talk: id, text: f.name || 'file', file: v, id: `${word}${what}.${crypto.randomUUID()}` });
         },
         how: lines => how(lines),
         choose(mode) { return this.say(mode === 'present' ? 'present' : 'together', 'how'); },

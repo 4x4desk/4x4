@@ -80,6 +80,10 @@ box.export();  box.import(copy, { merge });   // the same, as a plain object
 
 For an app used on more than one computer at once: a list, a board, a game. `data()` keeps on this computer; `shared()` (`shared.js`) keeps with the person's other computers and with people they let in, through 4x4's peer-to-peer service on the computer. A shared thing is a conversation of its own: every change is one line, kept on every computer in it, and an app draws from the lines. Anyone in it may choose to present (the others watch and can still write) or to work together. The header of `shared.js` has every call.
 
+## For an agent, and the common jobs
+
+An agent making an app, or trimming a site with a recipe, is handed [`skill/4x4-app/SKILL.md`](skill/4x4-app/SKILL.md); the desk lays it, with this folder, on the person's computer. The [`blueprints/`](blueprints/) say the easy way to do a common job, each written from a real app.
+
 ## How it's made
 
 - **The look** is [`look.css`](look.css), generated from 4x4's design tokens: change the tokens, not this file. In a zone the host sends its own values (`{ x4: 'look', vars }`), so the app follows the person's theme and sizes.

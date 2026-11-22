@@ -1,0 +1,43 @@
+{
+  "id": "kijiji",
+  "name": "Kijiji",
+  "home": "https://www.kijiji.ca/",
+  "allow": [
+    "kijiji.ca",
+    "*.kijiji.ca",
+    "*.classifiedscloud.io",
+    "use.typekit.net",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "maps.googleapis.com",
+    "maps.gstatic.com",
+    "www.google.com",
+    "www.gstatic.com",
+    "vhr.carfax.ca"
+  ],
+  "deny": [
+    "*://www.google.com/pagead/*",
+    "*://www.google.com/ads/*",
+    "*://www.kijiji.ca/tms/*",
+    "*://www.kijiji.ca/measure/*"
+  ],
+  "capture": [
+    "https://www.kijiji.ca/b-*",
+    "https://www.kijiji.ca/v-*",
+    "https://www.kijiji.ca/anvil/api*",
+    "https://www.kijiji.ca/_next/data/*"
+  ],
+  "patch": [
+    {
+      "match": "https://www.kijiji.ca/*",
+      "theme": true
+    },
+    {
+      "match": "https://webapp-static.ca-kijiji-production.classifiedscloud.io/*",
+      "theme": true
+    }
+  ],
+  "style": [
+    "style/dark.css"
+  ]
+}

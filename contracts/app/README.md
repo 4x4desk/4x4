@@ -10,7 +10,7 @@ Version 1. In use in 4x4 AWD Desk. People see these called essence apps: an app 
 <data>/4x4/tpa/<id>/
   tpa.json        what it is (below)
   icon.png|svg    its tile
-  recipe.json     our changes to its source, all optional: allow, deny, capture, patch, style, script, drm
+  recipe.json     our changes to its source (../recipe/README.md): allow, deny, capture, patch, style, script, links, drm
   style/*.css     laid over its pages before they draw
   script/*.js     run in its pages, in a sandbox that sees the page
   AGENTS.md       why it is this way, for the agent changing it (optional)
