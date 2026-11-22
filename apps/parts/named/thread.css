@@ -1,0 +1,34 @@
+/* A thread: a conversation and the box to write in (thread.js). Linked after named.css by an app that has one:
+     <link rel="stylesheet" href="/apps/parts/named/people.css">
+
+   any …-thread                   chat-thread, group-chat-thread
+     thread-log > log-line [mine] > b > time · line-file (a picture, a video, a link that saves it)
+     form > button[name=add] · textarea · button
+     [dropping]                   a file is held over it
+     output                       why a line wasn't sent
+
+   The lists of who is around need nothing here: they are lists, their rows list-row, their pictures a portrait or
+   an icon (named.css); people.js fills them. */
+@layer parts {
+
+:state(thread) { display: flex; flex-direction: column; flex: 1; min-height: 0; gap: calc(10 * var(--u)); }
+thread-log { flex: 1; min-height: calc(120 * var(--u)); overflow-y: auto; display: flex; flex-direction: column; gap: calc(10 * var(--u)); padding: calc(4 * var(--u)) calc(2 * var(--u)); }
+thread-log:empty::before { content: attr(empty); margin: auto; text-align: center; color: var(--muted); font-size: max(16px, calc(17 * var(--t))); }
+log-line { align-self: flex-start; max-width: 80%; padding: calc(10 * var(--u)) calc(15 * var(--u)); border-radius: calc(16 * var(--u)) calc(16 * var(--u)) calc(16 * var(--u)) calc(4 * var(--u)); background: var(--panel); border: var(--hair) solid var(--line); white-space: pre-wrap; overflow-wrap: anywhere; }
+log-line[mine] { align-self: flex-end; border-radius: calc(16 * var(--u)) calc(16 * var(--u)) calc(4 * var(--u)) calc(16 * var(--u)); background: color-mix(in oklab, var(--hue) 16%, var(--panel)); border-color: color-mix(in oklab, var(--hue) 40%, transparent); }
+log-line > b { display: flex; gap: calc(10 * var(--u)); align-items: baseline; font-size: max(16px, calc(16 * var(--t))); margin-bottom: calc(2 * var(--u)); }
+log-line time { font-weight: 400; color: var(--muted); }
+line-file { display: flex; flex-direction: column; gap: calc(6 * var(--u)); margin: calc(4 * var(--u)) 0; }
+line-file :is(img, video) { display: block; max-width: 100%; max-height: calc(360 * var(--u)); border-radius: calc(10 * var(--u)); }
+line-file a { color: inherit; }
+:state(thread)[dropping] > thread-log { outline: 2px dashed currentColor; outline-offset: -4px; }
+:state(thread) > form { display: flex; gap: calc(10 * var(--u)); align-items: flex-end; }
+:state(thread) textarea { flex: 1; min-height: calc(48 * var(--u)); max-height: 40vh; }
+/* narrow (a phone, a small zone): the box to write in gets the whole width, Add and Send under it (2026-11-19: squeezed
+   between them it showed a word and a half) */
+@container (max-width: 480px) {
+  :state(thread) > form { flex-wrap: wrap; }
+  :state(thread) > form > textarea { order: -1; flex-basis: 100%; }
+  :state(thread) > form > button:last-of-type { margin-left: auto; }
+}
+}

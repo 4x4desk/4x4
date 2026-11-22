@@ -24,7 +24,7 @@ body:
     id: steps
     attributes:
       label: Steps to see it
-      description: From a fresh clone, served with `python3 -m http.server 8000`.
+      description: From a fresh clone, served with `helpers/run serve . 8000`.
       placeholder: |
         1. Open http://localhost:8000/apps/calculator/
         2. Press …

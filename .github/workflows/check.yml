@@ -1,6 +1,7 @@
 # The checks every pull request and every change to main must pass.
 #   files:    tools/check (links resolve, no file over 1 MB, no .DS_Store, scripts parse, labels defined).
-#             Run it yourself first: python3 tools/check
+#             Run it yourself first: tools/check (it is one of the helpers, in Rust, and builds them the first time;
+#             the runner already has Rust and cargo, so nothing is installed here).
 #   sign-off: every commit in a pull request carries a Signed-off-by line (CONTRIBUTING.md › Sign-off).
 name: check
 
@@ -18,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Links, sizes, .DS_Store, JavaScript syntax, labels
-        run: python3 tools/check
+        run: tools/check
 
   sign-off:
     if: github.event_name == 'pull_request'

@@ -14,7 +14,7 @@ Each contract is a folder with a README: the promise, who keeps it, and its vers
 | 2. Glue | The window, the bar, zones, workspaces, the part that runs each app (the site core), the installer | Any day: it reaches every desk as a signed UI update, with no recompile | [`app/`](app/), [`workspace/`](workspace/) |
 | 3. Apps | One folder each: a source plus our changes, or a page of our own | Any day; the person and their agent change them too | [`app/`](app/) |
 | 4. Workspaces | One small file each: which apps, and where | Whenever a person likes | [`workspace/`](workspace/) |
-| 5. Data | Sign-ins and what each app stores, in its own container | Never leaves the computer | Not yet written |
+| 5. Data | Sign-ins and what each app stores, in its own container; what an app shares, kept on every computer it is shared with | Sign-ins never leave the computer; a shared thing reaches only the computers and people it is shared with | Not a contract yet: an app keeps with `data()` and shares with `shared()` ([`apps/parts`](../apps/parts/README.md)) |
 
 Building a new app touches layer 3 only. A new feature for every desk goes in layer 2. Layer 1 is for what the layers above can't do.
 

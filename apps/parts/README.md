@@ -24,24 +24,35 @@ Every app links the two files, and that is all the wiring there is:
 
 ## The parts
 
+Standard HTML for what is pressed and for the outline; a named element for each thing, its last word its kind: `recipe-list` is a list, `plant-card` a card. `parts.js` reads the last word and gives every such element its kind's look, role and life, so an app names things for what they are and writes no wiring.
+
+**What a new page writes** (the parts page, [`index.html`](index.html), shows each one working):
+
 | Part | Markup | For |
 |---|---|---|
-| Page | `<app-page>` with an optional `<app-bar>` then `<app-body>` | The app's frame: a title bar and what scrolls |
-| Bar | `<app-bar><h1>…</h1><bar-end>…</bar-end></app-bar>` | The app's name and its main actions |
-| Button | `<button>`; `primary`, `danger`, `bare`, `big`, `icon`, `chip` | Quiet by default; one `primary` a screen; a `chip` is a small choice in a row |
-| Field | `<app-field><span>Name</span><input></app-field>`; `inline` | A label over `input`, `select` or `textarea`, or beside it |
-| Switch | `<button role="switch" aria-checked="false">…</button>` | On or off; says `change` |
-| Tabs | `<app-tabs><button tab="a" current>` + `<app-pane name="a" current>` | Views of one thing; arrow keys move |
-| Panel | `<app-panel>` | A lifted surface for one subject |
-| Cards | `<app-cards>` of `<button card>` with `<card-picture>` | Big pictured choices; `current` marks the one |
-| List | `<app-list>` of `<app-row>` with `<row-text>` and `<row-end>` | Things and what to do with them; `press` (Enter, Space and the arrow keys work too), `current` |
-| Split | `<app-split id="…"><aside>…</aside><split-bar></split-bar><main>…</main></app-split>` | Two parts and a line the person drags; its place is kept |
-| Turns | `<app-split turns>`, `at="main"`, a `<button turn-back>` | A list and what's opened from it. When narrow (a zone can be 300 pixels wide), they take turns at full height |
-| Empty | `<app-empty>` with an `h2`, a `p`, one button | Nothing here yet, and the one thing to do |
-| Tag | `<app-tag>` with `ok`, `warn`, `bad` or `info` | A state, in a word |
-| Busy | `<app-busy>` | Work under way, so nothing looks stalled |
-| Said | `say('Saved')`, `say("That didn't work", 'bad')`, `say('Deleted', '', { text: 'Undo', run })` | Every press answered on screen. With one button, it stays longer, and holds while the pointer is over it |
+| Page | `<app-page>` with `<header><h1>…</h1> buttons</header>` then `<main>` | The app's frame: a title bar and what scrolls |
+| Button | `<button>`; `primary`, `danger`, `bare`, `big`, `icon`; `ok`, `bad` | Quiet by default; one `primary` a screen; `ok` and `bad` are yes and no to something happening now |
+| Field | `<label>Name <input name="…"></label>` | A label around its `input`, `select` or `textarea` |
+| Switch | `<button role="switch" aria-checked="false">…</button>` | On or off; a press flips it and the button says `change` (it bubbles; `e.detail` is true for on). The app may set `aria-checked` itself to show what is so |
+| Field and key | `<form inline><label>… <input></label><button primary>Add</button></form>` | A field with its key on one line; the key goes under when narrow |
+| Group | `<…-group>` around buttons | Keys that belong together, in a row that wraps |
+| Tabs | `<tab-group><button tab="a" current>` and beside it `<section tab="a" current>` | Views of one thing; arrow keys move; wraps when narrow |
+| Card | `<…-card>` | A lifted surface for one subject; `hidden` until wanted |
+| Choices | `<…-grid>` of `<button card>` with `<card-picture>` | Big pictured choices; `current` marks the one |
+| List | `<…-list>` of `<list-row>` with `<row-title>`, `<row-note>`, a picture before (`<…-portrait>`, `<…-icon>`), buttons after | Things and what to do with them; `press` on a row makes the whole row the key (Enter and Space too, also on a row made with `el()`); `current`; `done` strikes its title. Narrow, a row's two or more buttons go under its words |
+| View | `<…-view name="…"><aside>…</aside><view-splitter></view-splitter><main>…</main></…-view>` | Two sides and a line the person drags; `turns`: narrow, the sides take turns (`at="main"`, a `<button turn-back>`) |
+| Nothing yet | `<…-notice>` straight after a list, with an `h2`, a `p`, one button; or `empty="…"` on the list | Shown while the list has no rows. A notice anywhere else (trouble, nothing open) is always shown: hide it with `hidden` |
+| Tag, badge | `<…-tag ok|warn|bad|info>`, `<…-badge>` | A state in a word; a count |
+| Working | `<progress>` | Work under way |
+| Must answer | `<dialog>` with a `form method="dialog"` | Something to answer before going on; `showModal()` |
+| Changes | `<…-log lines>` of `<log-line added|removed>` | What changed, line by line |
+| Thread | `<…-thread>` (`named/thread.js`, `named/thread.css`) | A conversation and the box to write in |
+| Said | `say('Saved')`, `say("That didn't work", 'bad')`, `say('Deleted', '', { text: 'Undo', run })` | Every press answered on screen |
 | Data | `const box = data()` | What the app keeps (below) |
+| Shared | `const s = await shared()` (`shared.js`) | What the app keeps with the person's other computers (below) |
+| People | a `<…-list>` filled by `fill(list, devices)` (`named/people.js`) | Who is around, with a dot for whether they can be reached and one key each; says `pick` |
+
+Apps written before these names use `app-bar`, `app-body`, `app-split`, `app-list` and the rest; those still draw, and a page with any of them on it keeps the older behaviour whole.
 
 From `parts.js`: `say(text, kind, act)`, `el(tag, attrs, ...kids)`, `data(id)`. Parts added after load are dressed by themselves; `dress(scope)` stays for apps that call it. The document hears `look` when the host's colours arrive.
 
@@ -65,6 +76,10 @@ box.export();  box.import(copy, { merge });   // the same, as a plain object
 - **When nothing can be kept** (a frame with no storage of its own), `box.kept` is false and the box lasts only this visit; the app should say so. When the computer's space is full, `set` returns false and the person is told once.
 - **Size:** browser storage holds a few megabytes per origin, shared by all the person's apps. That is fine for notes and settings; pictures and long recordings want IndexedDB or files, which aren't a part yet.
 
+## What an app shares: `shared()`
+
+For an app used on more than one computer at once: a list, a board, a game. `data()` keeps on this computer; `shared()` (`shared.js`) keeps with the person's other computers and with people they let in, through 4x4's peer-to-peer service on the computer. A shared thing is a conversation of its own: every change is one line, kept on every computer in it, and an app draws from the lines. Anyone in it may choose to present (the others watch and can still write) or to work together. The header of `shared.js` has every call.
+
 ## How it's made
 
 - **The look** is [`look.css`](look.css), generated from 4x4's design tokens: change the tokens, not this file. In a zone the host sends its own values (`{ x4: 'look', vars }`), so the app follows the person's theme and sizes.
@@ -76,7 +91,7 @@ box.export();  box.import(copy, { merge });   // the same, as a plain object
 ## Worth knowing
 
 - `parts.js` is a module and says `ready` to the host as soon as it runs. An app that listens for its own messages from the host must be listening by then: load its script as a plain one at the end of `<body>` (see [`../calculator/index.html`](../calculator/index.html)).
-- In the desk an app runs in a sandboxed frame with no origin of its own, and a module there only loads from a server that sends CORS headers. Opened on its own from `python3 -m http.server`, it needs none.
+- In the desk an app runs in a sandboxed frame with no origin of its own, and a module there only loads from a server that sends CORS headers. Opened on its own from a plain local server (`helpers/run serve . 8000`), it needs none.
 - Opened on its own, an app's background is `--bg`; there's no setting for another yet.
 
 ## Not yet

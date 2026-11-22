@@ -4,9 +4,9 @@
 
 ## How you checked it
 
-- [ ] Opened it in a browser (`python3 -m http.server 8000` from the repository's root)
+- [ ] Opened it in a browser (`helpers/run serve . 8000` from the repository's root)
 - [ ] Looked at it in light and in dark, narrow and wide
-- [ ] `python3 tools/check` passes
+- [ ] `tools/check` passes
 
 <!-- Anything else you tried, and anything you weren't sure about. -->
 

@@ -53,7 +53,7 @@ The folder's name is the app's id. The desk reads the manifest to make the app's
 
 ## Shared with someone
 
-Two people in a call in the desk can see the same calculator. The call itself is part of the desk, not this repository; [`check/shared.html`](check/shared.html) plays its part so the shared mode can be tried here. Its calculators run in sandboxed frames, as in the desk, so it needs a server that sends CORS headers (`Access-Control-Allow-Origin: *`); plain `python3 -m http.server` doesn't, and the frames stay empty.
+Two people in a call in the desk can see the same calculator. The call itself is part of the desk, not this repository; [`check/shared.html`](check/shared.html) plays its part so the shared mode can be tried here. Its calculators run in sandboxed frames, as in the desk, so it needs a server that sends CORS headers (`Access-Control-Allow-Origin: *`): `helpers/run serve . 8000 --cors` does; without them the frames stay empty.
 
 - The host says `{ x4: 'share' }`. From then on a press (a key, the keyboard, or the tape) isn't worked: it goes to the host as `{ x4: 'press', key }`. A tape answer goes as `recall:<answer>`.
 - The host sends every press, from either person, back to everyone as `{ x4: 'press', key }`, in one order of its own, and only those are worked. So both calculators work the same presses in the same order and show the same sum.

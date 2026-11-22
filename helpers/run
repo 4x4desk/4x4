@@ -1,0 +1,14 @@
+#!/bin/sh
+# Runs one helper: helpers/run <tool> [arguments]   (helpers/run with no tool lists them)
+# Builds x4h the first time, and again when a source file is newer than it (after a pull); otherwise starts at once.
+set -eu
+here=$(cd "$(dirname "$0")" && pwd)
+bin="$here/target/release/x4h"
+[ -f "$bin.exe" ] && bin="$bin.exe"
+if [ ! -f "$bin" ] || [ -n "$(find "$here/src" "$here/Cargo.toml" -newer "$bin" 2>/dev/null | head -1)" ]; then
+  command -v cargo >/dev/null 2>&1 || PATH="$HOME/.cargo/bin:$PATH"
+  cargo build --release --quiet --manifest-path "$here/Cargo.toml" >&2
+  [ -f "$bin.exe" ] && bin="$bin.exe"
+  touch "$bin"
+fi
+exec "$bin" "$@"

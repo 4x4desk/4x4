@@ -13,7 +13,7 @@ Our own apps, one folder each, and the parts they are built from.
 From the repository's root:
 
 ```sh
-python3 -m http.server 8000
+helpers/run serve . 8000
 ```
 
 Then open `http://localhost:8000/apps/<folder>/`. Each app also opens on its own in any browser served this way: it takes its look from [`parts/look.css`](parts/look.css) and the computer's light or dark setting.

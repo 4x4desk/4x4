@@ -6,24 +6,25 @@
 <title>My app</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<!-- A new app starts here: copy this folder to apps/<your-app>/ and read ../parts/README.md › The parts before adding
+     to it. Name each thing for what it is and end with its kind: rename thing-list to recipe-list and it is still a
+     list. The page says what is on the screen; app.js fills it in. No class, no id, no div. -->
 <link rel="stylesheet" href="../parts/parts.css">
-<script type="module" src="../parts/parts.js"></script>
 <script type="module" src="app.js"></script>
 </head>
 <body>
-<!-- A new app starts here: copy this folder to apps/<your-app>/ (apps/parts/README.md). -->
 <app-page>
-  <app-bar>
+  <header>
     <h1>My app</h1>
-    <bar-end><button primary id="add">Add one</button></bar-end>
-  </app-bar>
-  <app-body>
-    <app-list id="things" hidden></app-list>
-    <app-empty id="empty">
+    <button primary name="add">Add one</button>
+  </header>
+  <main>
+    <thing-list></thing-list>
+    <empty-notice>
       <h2>Nothing here yet</h2>
       <p>Add the first one to get going.</p>
-    </app-empty>
-  </app-body>
+    </empty-notice>
+  </main>
 </app-page>
 </body>
 </html>

@@ -1,12 +1,24 @@
 # 4x4
 
-4x4 AWD Desk is a desktop for people who work at large monitors. The screen is divided into zones, each zone holds apps, and a workspace says which apps sit where.
+**4x4 Desktop Freedom.** 4x4 AWD Desk is a desktop for people who work at large monitors. The screen is divided into zones, each zone holds apps, and a workspace says which apps sit where.
 Every app is one folder of plain files that the person, and their own AI agent, can read and change.
 It runs on the person's own computer, and what they store stays there.
 
 New here? Start with [the guide](guide/): seven short pages, for people and AI agents alike.
 
-The desk is at [4x4desk.app](https://4x4desk.app). This repository holds the open parts of it that are ready: the contracts the pieces meet through, the shared parts every app is built from, the first app, and a first workspace.
+[4x4desk.app](https://4x4desk.app) tells what 4x4 is. This repository holds the open parts of the desk that are ready: the contracts the pieces meet through, the shared parts every app is built from, the first app, and a first workspace.
+
+## Get the desk
+
+4x4 AWD Desk is in alpha: an early test version, so some things will break. It updates itself. Downloads, their sizes and SHA-256 checksums are at [get.4x4desk.app/alpha](https://get.4x4desk.app/alpha/):
+
+- **Mac with an Apple chip** and **Intel Mac:** a disk image, or a signed installer package.
+- **Windows 10 and 11** (64-bit): an installer. It isn't signed for Windows yet, so Windows warns once.
+- **Linux** (64-bit Intel or AMD), in one line, into your own folder, no sudo:
+
+  ```sh
+  curl -fsSL https://get.4x4desk.app/alpha/linux/install.sh | sh
+  ```
 
 ## The layers
 
@@ -32,16 +44,19 @@ apps/
   parts/         the shared parts every app is built from, and a starter for a new app
   calculator/    the first app built from the parts
   workspaces/    ready-made workspaces
+helpers/         the small tools that build, package and check, in Rust: one program, x4h
+tools/
+  check          the check every pull request runs; run it before you send a change
 ```
 
 **Not here yet:** the desk itself (layers 1 and 2) and the other apps it ships with. Each joins this repository when it is ready for someone new to read.
 
 ## Try it
 
-From the root of a clone, with any Python 3:
+From the root of a clone (the small server is in `helpers/`; it builds itself the first time and needs Rust; any other static file server does as well):
 
 ```sh
-python3 -m http.server 8000
+helpers/run serve . 8000
 ```
 
 Then open:

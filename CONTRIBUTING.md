@@ -31,7 +31,7 @@ If you bring code from another project, its licence must allow it to be shared u
 There is no build step. From the repository's root:
 
 ```sh
-python3 -m http.server 8000
+helpers/run serve . 8000
 ```
 
 Then open `http://localhost:8000/apps/<folder>/`. The parts page, `http://localhost:8000/apps/parts/`, shows every part in light and dark.
@@ -39,10 +39,10 @@ Then open `http://localhost:8000/apps/<folder>/`. The parts page, `http://localh
 Before you send a change, run the same check a pull request runs:
 
 ```sh
-python3 tools/check
+tools/check
 ```
 
-It makes sure every link resolves, no file is over 1 MB, there's no `.DS_Store`, and every script parses.
+It makes sure every link resolves, no file is over 1 MB, there's no `.DS_Store`, and every script parses. The check is written in Rust and builds itself the first time, so it needs Rust and cargo ([rustup.rs](https://rustup.rs)); the apps themselves need neither.
 
 ## Send a change
 

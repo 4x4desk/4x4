@@ -1,0 +1,3 @@
+/* The kinds are in ../parts.css since 2026-11-18 (moved there). This file only
+   keeps the address working for pages that link it; a new page links /apps/parts/parts.css. */
+@import "../parts.css";

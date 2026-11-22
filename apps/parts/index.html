@@ -4,97 +4,205 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>4x4 parts</title>
+<!-- Every kind, as an app would write it (the agreed names, README.md › The parts). The library gives kinds, not names: this
+     page calls its things sample-…, an app calls them what they are. Read a tag by its last word: sample-list is
+     a list, choice-grid a grid, sample-card a card. A kind's parts start with the kind: list-row in a list,
+     row-title in a row, card-picture in a card, view-splitter in a view. -->
 <link rel="stylesheet" href="parts.css">
-<script type="module" src="parts.js"></script>
+<link rel="stylesheet" href="named/thread.css">
 <script type="module" src="index.js"></script>
 </head>
 <body>
-<!-- Every part, as an app would use it (apps/parts/README.md). Open it on its own (/apps/parts/) or in a zone. -->
 <app-page>
-  <app-bar>
+  <header>
     <h1>4x4 parts</h1>
-    <bar-end>
-      <button id="theme" bare><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></svg> Light or dark</button>
-      <button primary id="save">Save</button>
-    </bar-end>
-  </app-bar>
-  <app-split id="main">
+    <button bare name="light"><svg><use href="icons.svg#sun"/></svg> Light or dark</button>
+    <button primary name="save">Save</button>
+  </header>
+
+  <parts-view name="parts">
     <aside>
-      <app-body>
-        <h3 quiet>A list</h3>
-        <app-list id="list">
-          <app-row press current><row-text><strong>Buttons and fields</strong><span quiet>What a person presses and types</span></row-text></app-row>
-          <app-row press><row-text><strong>Cards</strong><span quiet>Big pictured choices</span></row-text></app-row>
-          <app-row press><row-text><strong>Rows</strong><span quiet>Things, and what to do with them</span></row-text><row-end><app-tag ok>New</app-tag></row-end></app-row>
-        </app-list>
-        <p quiet>Drag the line to the right, or use the arrow keys on it.</p>
-      </app-body>
+      <h3 quiet>A list</h3>
+      <sample-list>
+        <list-row press current>
+          <row-title>Buttons and fields</row-title>
+          <row-note>What a person presses and types</row-note>
+        </list-row>
+        <list-row press>
+          <row-title>Cards</row-title>
+          <row-note>Big pictured choices</row-note>
+        </list-row>
+        <list-row press>
+          <row-title>Rows</row-title>
+          <row-note>Things, and what to do with them</row-note>
+          <sample-tag ok>New</sample-tag>
+        </list-row>
+      </sample-list>
+      <p quiet>Drag the line to the right, or use the arrow keys on it.</p>
     </aside>
-    <split-bar></split-bar>
+
+    <view-splitter></view-splitter>
+
     <main>
-      <app-body>
-        <app-tabs>
-          <button tab="controls" current>Controls</button>
-          <button tab="cards">Cards</button>
-          <button tab="states">States</button>
-          <button tab="data">Data</button>
-        </app-tabs>
+      <tab-group>
+        <button tab="controls" current>Controls</button>
+        <button tab="cards">Cards</button>
+        <button tab="states">States</button>
+        <button tab="people">People</button>
+        <button tab="data">Data</button>
+      </tab-group>
 
-        <app-pane name="controls" current>
-          <app-panel>
-            <h2>Buttons</h2>
-            <p quiet>Quiet by default. One primary on a screen. Danger for what can't be taken back.</p>
-            <p><button>Quiet</button> <button primary>Primary</button> <button danger>Remove</button> <button bare>Bare</button> <button icon aria-label="Add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button> <button disabled>Not now</button></p>
-            <p><button primary big><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> A big one</button></p>
-          </app-panel>
-          <app-panel>
-            <h2>Fields</h2>
-            <app-field><span>Name</span><input placeholder="What to call it"></app-field>
-            <app-field><span>Kind</span><select><option>A note</option><option>A list</option></select></app-field>
-            <app-field><span>Words</span><textarea placeholder="Say it in your own words"></textarea></app-field>
-            <button role="switch" aria-checked="true">Keep it on this computer</button>
-            <button role="switch" aria-checked="false">Tell me when it changes</button>
-          </app-panel>
-        </app-pane>
+      <section tab="controls" current>
+        <sample-card>
+          <h2>Buttons</h2>
+          <p quiet>Quiet by default. One primary on a screen. Danger for what can't be taken back.</p>
+          <sample-group>
+            <button>Quiet</button>
+            <button primary>Primary</button>
+            <button danger>Remove</button>
+            <button bare>Bare</button>
+            <button icon aria-label="Add"><svg><use href="icons.svg#add"/></svg></button>
+            <button disabled>Not now</button>
+          </sample-group>
+          <sample-group>
+            <button primary big><svg><use href="icons.svg#add"/></svg> A big one</button>
+          </sample-group>
+          <p quiet>Yes and no to something happening now: a call's Answer and End.</p>
+          <sample-group>
+            <button ok>Answer</button>
+            <button bad>End</button>
+          </sample-group>
+        </sample-card>
+        <sample-card>
+          <h2>Fields</h2>
+          <form inline><label>A field and its key <input name="thing" placeholder="Add something"></label><button primary type="button">Add</button></form>
+          <label>Name <input name="name" placeholder="What to call it"></label>
+          <label>Kind <select name="kind"><option>A note</option><option>A list</option></select></label>
+          <label>Words <textarea name="words" placeholder="Say it in your own words"></textarea></label>
+          <button role="switch" aria-checked="true">Keep it on this computer</button>
+          <button role="switch" aria-checked="false">Tell me when it changes</button>
+        </sample-card>
+      </section>
 
-        <app-pane name="cards">
-          <app-cards>
-            <button card style="--hue: var(--zone-left)"><card-picture><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg></card-picture><strong>Reading</strong><span quiet>Two apps side by side</span></button>
-            <button card current style="--hue: var(--zone-centre)"><card-picture><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg></card-picture><strong>Notes</strong><span quiet>You are here</span></button>
-            <button card style="--hue: var(--zone-right)"><card-picture><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></svg></card-picture><strong>Weather</strong><span quiet>One app</span></button>
-            <button card style="--hue: var(--zone-bottom)"><card-picture><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></card-picture><strong>New</strong><span quiet>Start empty</span></button>
-          </app-cards>
-        </app-pane>
+      <section tab="cards">
+        <choice-grid>
+          <button card hue="left">
+            <card-picture><svg><use href="icons.svg#book"/></svg></card-picture>
+            <strong>Reading</strong>
+            <small>Two apps side by side</small>
+          </button>
+          <button card hue="centre" current>
+            <card-picture><svg><use href="icons.svg#note"/></svg></card-picture>
+            <strong>Notes</strong>
+            <small>You are here</small>
+          </button>
+          <button card hue="right">
+            <card-picture><svg><use href="icons.svg#sun"/></svg></card-picture>
+            <strong>Weather</strong>
+            <small>One app</small>
+          </button>
+          <button card hue="bottom">
+            <card-picture><svg><use href="icons.svg#add"/></svg></card-picture>
+            <strong>New</strong>
+            <small>Start empty</small>
+          </button>
+        </choice-grid>
+      </section>
 
-        <app-pane name="states">
-          <app-panel>
-            <h2>Meanings</h2>
-            <p><app-tag>Plain</app-tag> <app-tag ok>Saved</app-tag> <app-tag warn>Check this</app-tag> <app-tag bad>Failed</app-tag> <app-tag info>Tip</app-tag></p>
-            <h2>Working</h2>
-            <app-busy></app-busy>
-            <p><button id="ok">Say it worked</button> <button id="bad">Say it failed</button> <button id="undo">Say it with Undo</button></p>
-          </app-panel>
-          <app-panel>
-            <app-empty>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg>
-              <h2>Nothing here yet</h2>
-              <p>Say what's missing in a line, then offer the one thing to do about it.</p>
-              <button primary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Make the first one</button>
-            </app-empty>
-          </app-panel>
-        </app-pane>
+      <section tab="states">
+        <sample-card>
+          <h2>Meanings</h2>
+          <p><sample-tag>Plain</sample-tag> <sample-tag ok>Saved</sample-tag> <sample-tag warn>Check this</sample-tag> <sample-tag bad>Failed</sample-tag> <sample-tag info>Tip</sample-tag></p>
+          <h2>Working</h2>
+          <progress></progress>
+          <sample-group>
+            <button name="say-ok">Say it worked</button>
+            <button name="say-bad">Say it failed</button>
+            <button name="say-undo">Say it with Undo</button>
+            <button name="ask">Ask before going on</button>
+          </sample-group>
+        </sample-card>
+        <sample-card>
+          <h2>What changed</h2>
+          <change-log lines>
+            <log-line>Flour, two cups</log-line>
+            <log-line removed>Sugar, one cup</log-line>
+            <log-line added>Honey, half a cup</log-line>
+            <log-line>Salt, a pinch</log-line>
+          </change-log>
+        </sample-card>
+        <sample-card>
+          <empty-notice>
+            <svg><use href="icons.svg#note"/></svg>
+            <h2>Nothing here yet</h2>
+            <p>Say what's missing in a line, then offer the one thing to do about it.</p>
+            <button primary><svg><use href="icons.svg#add"/></svg> Make the first one</button>
+          </empty-notice>
+        </sample-card>
+      </section>
 
-        <app-pane name="data">
-          <app-panel>
-            <h2>What an app keeps</h2>
-            <p quiet>Kept on this computer as you type. Reload the page and it's still here; open the page twice and one follows the other.</p>
-            <app-field><span>A line to keep</span><input id="kept" placeholder="Type anything"></app-field>
-            <p><button id="save-copy">Save a copy</button> <button id="bring-copy">Bring a copy in</button> <button danger id="forget">Forget it</button></p>
-          </app-panel>
-        </app-pane>
-      </app-body>
+      <section tab="people">
+        <sample-card>
+          <h2>Who is around</h2>
+          <p quiet>A portrait for a person, an icon for a thing; the dot says whether they can be reached. A badge counts what is new.</p>
+          <people-list>
+            <list-row current>
+              <person-portrait online>A</person-portrait>
+              <row-title>Ada <unread-badge aria-label="2 new">2</unread-badge></row-title>
+              <row-note>Online, direct</row-note>
+              <button primary>Write</button>
+            </list-row>
+            <list-row>
+              <device-icon relay>T</device-icon>
+              <row-title>The upstairs computer</row-title>
+              <row-note>Online, through a relay</row-note>
+              <button primary>Write</button>
+            </list-row>
+            <list-row done>
+              <talk-icon group>3</talk-icon>
+              <row-title>The three of us</row-title>
+              <row-note>Offline</row-note>
+              <button primary>Write</button>
+            </list-row>
+          </people-list>
+        </sample-card>
+        <sample-card>
+          <h2>A conversation</h2>
+          <sample-thread>
+            <thread-log empty="Nothing written yet."></thread-log>
+            <form>
+              <textarea name="text" rows="1" placeholder="Write…" aria-label="Write"></textarea>
+              <button primary>Send</button>
+            </form>
+            <output></output>
+          </sample-thread>
+        </sample-card>
+      </section>
+
+      <section tab="data">
+        <sample-card>
+          <h2>What an app keeps</h2>
+          <p quiet>Kept on this computer as you type. Reload the page and it's still here; open the page twice and one follows the other.</p>
+          <label>A line to keep <input name="line" placeholder="Type anything"></label>
+          <sample-group>
+            <button name="save-copy">Save a copy</button>
+            <button name="bring-copy">Bring a copy in</button>
+            <button danger name="forget">Forget it</button>
+          </sample-group>
+        </sample-card>
+      </section>
     </main>
-  </app-split>
+  </parts-view>
+  <dialog name="ask">
+    <form method="dialog">
+      <h2>Remove the list?</h2>
+      <p>Its three things go with it.</p>
+      <sample-group>
+        <button danger value="yes">Remove</button>
+        <button value="no">Keep it</button>
+      </sample-group>
+    </form>
+  </dialog>
 </app-page>
 </body>
 </html>

@@ -1,0 +1,30 @@
+# 4x4's build helpers: one small program, x4h, with a subcommand per tool (README.md lists them).
+# Building AWD already needs Rust, so these add no install. Kept to Rust 1.96 (the oldest of our build computers).
+[package]
+name = "x4-helpers"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.96"
+publish = false
+license = "AGPL-3.0-only"
+description = "4x4's build, package, publish and test helpers"
+
+[lib]
+name = "x4_helpers"
+path = "src/lib.rs"
+
+[[bin]]
+name = "x4h"
+path = "src/main.rs"
+
+[dependencies]
+# preserve_order: a JSON file read and written back keeps its keys in the order they were in
+serde_json = { version = "1", features = ["preserve_order"] }
+sha2 = "0.10"
+# profile-icon: PNG in and out, and a system font's outlines for the name
+image = { version = "0.25", default-features = false, features = ["png"] }
+ab_glyph = { version = "0.2", features = ["variable-fonts"] }
+
+[profile.release]
+strip = true
+opt-level = 2

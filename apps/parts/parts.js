@@ -16,24 +16,33 @@
 //                                        act { text: 'Undo', run } puts one button on it and keeps it up longer
 //                 el(tag, attrs, ...kids)   an element in one line
 //                 data(id)   what the app keeps on this computer (below, "what an app keeps")
-// Everything is wired on the document, so parts added later work without being started.
+//                 kind(word, …), ready()   the kinds (below, "the kinds"): how a page written in the agreed names
+//                                          (README.md › The parts) gets its look, roles and life from this file
+// The earlier parts (app-tabs, app-split, app-row) are wired on the document, so parts added later work without
+// being started; a kind is defined as it appears.
 const root = document.documentElement;
 
 // ---- the host's look ----
 const hosted = parent !== window;
+let heard = false;
 const shown = () => requestAnimationFrame(() => root.setAttribute('looked', ''));
 addEventListener('message', e => {
   const m = e.data;
   if (e.source !== parent || m?.x4 !== 'look' || typeof m.vars !== 'object') return;
   for (const [k, v] of Object.entries(m.vars)) if (k.startsWith('--') && typeof v === 'string') root.style.setProperty(k, v);
   document.dispatchEvent(new CustomEvent('look', { detail: m.vars }));
+  root.removeAttribute('alone');   // a host answered after all: its surface, not ours
+  heard = true;
   shown();
 });
 if (hosted) parent.postMessage({ x4: 'ready' }, '*'); else root.setAttribute('alone', '');
-setTimeout(shown, hosted ? 500 : 0);   // a host that never answers: the app shows with its own values
+// a host that never answers (a frame inside a page that isn't a desk): the app shows with its own values and its own
+// background, as when opened alone, so its ink is never left on someone else's colour
+setTimeout(() => { if (hosted && !heard) root.setAttribute('alone', ''); shown(); }, hosted ? 500 : 0);
 
 // ---- an element in one line: el('button', { primary: '', text: 'Save', onclick: save }) ----
 export function el(tag, attrs = {}, ...kids) {
+  if (tag.includes('-')) define(tag);   // one of a kind is that kind from the moment it is made
   const e = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) {
     if (v === false || v == null) continue;
@@ -45,21 +54,18 @@ export function el(tag, attrs = {}, ...kids) {
   return e;
 }
 
-// ---- a line said over the app for a moment; kind: 'ok' | 'warn' | 'bad' colours it by meaning ----
+// ---- a line said over the app for a moment; tone: 'ok' | 'warn' | 'bad' colours it by meaning ----
 // act { text, run } adds one button (Undo after a delete): the line then stays longer, and holds while pointed at
-// or focused, so the person has time to change their mind.
+// or focused, so the person has time to change their mind. It is a toast (said-toast), heard as it appears.
 let said = null;
-export function say(text, kind = '', act = null) {
+export function say(text, tone = '', act = null) {
   said?.remove();
-  const line = said = el('app-said', { role: 'status' }, el('span', { text }));
+  define('said-toast', true);
+  const line = said = el('said-toast', tone ? { [tone]: true } : {}, text);
   const gone = () => { line.remove(); if (said === line) said = null; };
-  if (kind) line.style.setProperty('--said', `var(--${kind})`);
-  if (act?.text) {
-    line.setAttribute('act', '');
-    line.append(el('button', { type: 'button', text: act.text, onclick: () => { gone(); act.run?.(); } }));
-  }
-  document.body.append(line);
+  if (act?.text) line.append(el('button', { type: 'button', text: act.text, onclick: () => { gone(); act.run?.(); } }));
   line.addEventListener('animationend', e => { if (e.target === line) gone(); });
+  document.body.append(line);
   return line;
 }
 
@@ -164,6 +170,165 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
 new MutationObserver(changes => { for (const c of changes) for (const n of c.addedNodes) if (n.nodeType === 1) dress(n); })
   .observe(root, { childList: true, subtree: true });
 export { dress };   // still here for apps that called it; the watcher does it now
+
+// ==== the kinds (README.md › The parts) ====
+// The library gives kinds, not names. An app names each thing by what it is (device-list, recipe-card, chat-thread)
+// and the LAST WORD says its kind. Any element on the page whose last word is a kind is defined on sight, in the
+// page's own DOM (no shadow root, nothing to build), and gets
+//   the kind's look     parts.css selects :state(list), :state(card)… so one rule dresses every list
+//   the kind's role     a screen reader hears "list" for <device-list>; the page never writes role="…"
+//   the kind's life     a view is dragged at its splitter, a row with `press` is pressed with the keys
+// A bare word the page writes for how a thing is just now is passed on the same way: <list-row current>.
+//   kind(word, { role, life })   a kind of an app's own, or more life for one here (named/thread.js adds a thread's):
+//                                life's methods are every such element's, connected() runs when one appears
+//   ready()                      resolves when everything on the page now is defined; wait before measuring
+// A page still written in the earlier parts (app-bar, app-body, app-split, app-list…) is left as it was: its own
+// names were never chosen with the kinds in mind (Search's trick-row, Maps' maps-view, Notes' keep-row), so nothing on
+// it is made a kind but the toast say() shows. It joins when it is rewritten in the names; one earlier part left on
+// a page keeps the whole page out.
+const earlier = !!document.querySelector('app-bar, app-body, app-split, app-panel, app-list, app-row, app-cards, app-card, app-field, app-empty, app-tabs, app-pane, app-busy, app-tag');
+// The kinds: the last word of a thing's name, and what a screen reader hears for it. The agreed list of
+// kinds, with what each is, is kept beside the names' grammar and checked against this one.
+export const ROLES = {
+  page: null, view: null, bar: null, card: null, grid: null, thread: null, line: null, tag: null, badge: null,
+  list: 'list', row: 'listitem', group: 'group', log: 'log', portrait: 'img', icon: 'img',
+  notice: 'status', toast: 'status', splitter: 'separator',
+};
+// A bare word on a named element, and how a screen reader hears it
+const HEARD = { current: 'ariaCurrent', busy: 'ariaBusy' };
+
+const lastWord = tag => tag.slice(tag.lastIndexOf('-') + 1);
+// A film's cast is named family first (prop-tag, paint-line) and the film engine defines those itself, so on a
+// page that holds a film nothing inside a <film-movie>, and no name that starts with a cast family, is made a kind
+// here: defining one first made the engine's own define throw (the Studio, 2026-11-18). The families are
+// the agreed list's. A page with no film keeps those first words for itself: an app's set-list is a
+// list (2026-11-19; before, the families were skipped on every page).
+const CAST = ['prop', 'paint', 'char', 'fx', 'set'];
+const film = () => !!document.querySelector('film-movie') || !!customElements.get('film-movie');
+const family = tag => film() && CAST.includes(tag.slice(0, tag.indexOf('-')));
+const cast = e => family(e.localName) || !!e.closest('film-movie');
+const lives = {};   // word → the object every element of that kind inherits its life from
+const lifeOf = word => lives[word] ??= Object.create(HTMLElement.prototype);
+
+function define(tag, always = false) {
+  const word = lastWord(tag);
+  if (!(word in ROLES) || (earlier && !always) || customElements.get(tag) || family(tag)) return;
+  const C = class extends HTMLElement {
+    static observedAttributes = Object.keys(HEARD);
+    #inner = this.attachInternals();
+    constructor() { super(); this.#inner.states.add(word); if (ROLES[word]) this.#inner.role = ROLES[word]; }
+    get heard() { return this.#inner; }   // for a kind that says more (a label, a value)
+    attributeChangedCallback(name, was, now) { this.#inner[HEARD[name]] = now === null ? null : 'true'; }
+    // a moment later, so the things inside it (a view's splitter) are defined too by the time it looks for them
+    connectedCallback() { queueMicrotask(() => { if (this.isConnected) this.connected?.(); }); }
+    disconnectedCallback() { this.gone?.(); }
+  };
+  Object.setPrototypeOf(C.prototype, lifeOf(word));
+  customElements.define(tag, C);
+}
+// every named element here now, and each one added later
+function scan(root) {
+  if (root.localName?.includes('-') && !cast(root)) define(root.localName);
+  for (const e of root.querySelectorAll?.('*') ?? []) if (e.localName.includes('-') && !cast(e)) define(e.localName);
+}
+export function kind(word, { role = ROLES[word] ?? null, life = {} } = {}) {
+  ROLES[word] = role;
+  Object.defineProperties(lifeOf(word), Object.getOwnPropertyDescriptors(life));
+  scan(document);
+  for (const e of document.querySelectorAll('*')) if (e.localName.includes('-') && lastWord(e.localName) === word && e.isConnected) e.connected?.();
+}
+export const ready = () => Promise.all([...document.querySelectorAll(':not(:defined)')]
+  .filter(e => lastWord(e.localName) in ROLES).map(e => customElements.whenDefined(e.localName)));
+
+// ---- a view: two sides, <aside> and <main>, side by side, or one under the other when narrow ----
+// With a <view-splitter> between them the person drags the line, or moves it with the arrow keys; the place is
+// kept for the next visit when the view has a name. <chat-view turns>: narrow, the sides take turns at the full
+// height; at="main" shows the main one, a [turn-back] button the aside.
+kind('view', { life: {
+  connected() {
+    if (this.wired) return;
+    this.wired = true;
+    this.addEventListener('click', e => { if (e.target.closest('[turn-back]')) this.removeAttribute('at'); });
+    const bar = this.querySelector(':scope > view-splitter'), key = `4x4.split.${location.pathname}.${this.getAttribute('name')}`;
+    if (!bar) return;
+    const kept = this.hasAttribute('name') ? (() => { try { return localStorage.getItem(key); } catch { return null; } })() : null;
+    const set = (percent, keep = true) => {
+      const p = Math.max(15, Math.min(75, percent));
+      this.style.setProperty('--split', `${p}%`);
+      bar.heard.ariaValueNow = String(Math.round(p));
+      if (keep && this.hasAttribute('name')) try { localStorage.setItem(key, String(p)); } catch { /* this visit only */ }
+    };
+    bar.tabIndex = 0;
+    bar.heard.ariaLabel = 'Resize';
+    set(parseFloat(kept) || 34, false);
+    bar.addEventListener('keydown', e => {
+      const step = { ArrowLeft: -3, ArrowRight: 3 }[e.key];
+      if (step) { set(parseFloat(this.style.getPropertyValue('--split')) + step); e.preventDefault(); }
+    });
+    bar.addEventListener('pointerdown', e => {
+      const box = this.getBoundingClientRect(), move = m => set((m.clientX - box.left) / box.width * 100);
+      const done = () => { bar.removeAttribute('dragging'); bar.removeEventListener('pointermove', move); };
+      bar.setPointerCapture(e.pointerId);
+      bar.setAttribute('dragging', '');
+      bar.addEventListener('pointermove', move);
+      bar.addEventListener('pointerup', done, { once: true });
+      bar.addEventListener('pointercancel', done, { once: true });
+      e.preventDefault();
+    });
+  },
+} });
+
+// ---- a group that holds tabs: <tab-group><button tab="a" current>…</button>…</tab-group>, and beside it whatever
+// carries the same word, <section tab="a">: a press or the arrow keys show it ----
+kind('group', { life: {
+  connected() {
+    const tabs = () => [...this.querySelectorAll(':scope > button[tab]')];
+    if (this.wired || !tabs().length) return;
+    this.wired = true;
+    this.heard.role = 'tablist';
+    const shown = () => this.parentElement.querySelectorAll(':scope > [tab]');
+    const show = tab => {
+      for (const b of tabs()) { b.toggleAttribute('current', b === tab); b.ariaSelected = String(b === tab); b.tabIndex = b === tab ? 0 : -1; }
+      for (const p of shown()) p.toggleAttribute('current', p.getAttribute('tab') === tab.getAttribute('tab'));
+      this.dispatchEvent(new CustomEvent('change', { detail: tab.getAttribute('tab'), bubbles: true }));
+    };
+    for (const b of tabs()) { b.role = 'tab'; b.tabIndex = b.hasAttribute('current') ? 0 : -1; }
+    for (const p of shown()) p.role = 'tabpanel';
+    this.addEventListener('click', e => { const tab = e.target.closest('button[tab]'); if (tab) show(tab); });
+    this.addEventListener('keydown', e => {
+      const step = { ArrowLeft: -1, ArrowRight: 1 }[e.key], all = tabs(), at = all.indexOf(e.target);
+      if (!step || at < 0) return;
+      const next = all[(at + step + all.length) % all.length];
+      next.focus(); show(next); e.preventDefault();
+    });
+  },
+} });
+
+// ---- a row: one thing in any list. <list-row press>: the whole row is pressed, with Enter or Space too, and the
+// arrow keys move between rows; the list is then heard as a list of choices ----
+kind('row', { life: {
+  connected() {
+    if (!this.hasAttribute('press') || this.wired) return;
+    this.wired = true;
+    this.tabIndex = 0;
+    this.heard.role = 'option';
+    if (this.parentElement?.heard) this.parentElement.heard.role = 'listbox';
+    this.addEventListener('keydown', e => {
+      if (e.target !== this) return;
+      const step = { ArrowUp: -1, ArrowDown: 1 }[e.key];
+      if (e.key === 'Enter' || e.key === ' ') { this.click(); e.preventDefault(); }
+      else if (step) {
+        const rows = [...this.parentElement.children].filter(r => r.matches(':state(row)[press]:not([hidden])'));
+        rows[rows.indexOf(this) + step]?.focus();
+        e.preventDefault();
+      }
+    });
+  },
+} });
+
+scan(document);
+new MutationObserver(changes => { for (const c of changes) for (const n of c.addedNodes) if (n.nodeType === 1) scan(n); })
+  .observe(root, { childList: true, subtree: true });
 
 // ---- what an app keeps: const box = data() ----
 // One small box per app, in this browser's storage on this computer. Every app the person makes shares one web
