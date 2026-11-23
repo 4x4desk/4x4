@@ -24,7 +24,7 @@ In [`apps/parts`](../apps/parts/). Every 4x4 app is built from these, and an app
 See every part working: open `apps/parts/index.html` from a local server ([Try it](../README.md#try-it)).
 
 ## Rust
-In [`rust/`](rust/): the list of every crate our programs build, one version of each, and the rules that keep it that way ([`rust/README.md`](rust/README.md)).
+In [`rust/`](rust/): our own small parts, each with one job ([`parts.tsv`](rust/parts.tsv)), every outside crate our programs build, one version of each, and the rules that keep it that way ([`rust/README.md`](rust/README.md)).
 
 ## Missing something?
 [Ask for a part](https://github.com/4x4desk/4x4/issues/new?template=missing-part.yml): what it should do, and anything you'd start from. Or build it and send it ([CONTRIBUTING.md](../CONTRIBUTING.md)).

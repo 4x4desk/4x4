@@ -11,7 +11,8 @@ Every Rust crate 4x4's programs are built from, one version of each, kept up to 
 6. **Our own small crates are the parts.** A job done in two programs becomes one small crate in the workspace. A few long-running services hold the shared work (the network, storage, the desk). Short tools are built into one program.
 
 ## The files
-- [`crates.tsv`](crates.tsv): every crate our programs build, its version, which programs use it, and whether one of ours names it directly. Look here first.
+- [`parts.tsv`](parts.tsv): **our own small parts**, each a small crate with one job (the device store, talks, notes, versions, files, the doorbell…). A program is built from only the parts it needs. Look here first, and add a part here rather than inside one program.
+- [`crates.tsv`](crates.tsv): every crate our programs build, its version, which programs use it, and whether one of ours names it directly.
 - [`allow.tsv`](allow.tsv): the crates still at two versions, and what ends each.
 - `crates`: rewrites `crates.tsv`. `crates --check` is the one-version check. `crates --mirror <clone>` refreshes 4x4desk/crates.
 

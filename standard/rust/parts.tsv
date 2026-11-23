@@ -1,0 +1,16 @@
+# Our own parts (standard/rust/crates rewrites this file). part	folder	its job
+x4-door	services/door	The doorbell: the one always-on part of 4x4's P2P. It holds the endpoint and the device list on one thread, and starts a tool when another device knocks for it (services/p2p/README.md › The doorbell and its tools)
+x4-engine	services/engine	The 4x4 engine: pairs with the person's 4x4 desk and runs their own agents (Claude Code, Codex, ACP agents) as a background service
+x4-home	services/home	The 4x4 home server: one front door per computer, by name, for every device in the house.
+x4-identity	services/identity	Who someone is, for 4x4: one ed25519 key per device, the identity line x4-p2p hands the engine, relay passes.
+x4-p2p	services/p2p	
+x4-p2p-base	services/p2p/crates/base	x4-p2p's basics: the device store, circles and people, joining, passes, the log line; what every other part of x4-p2p stands on
+x4-p2p-files	services/p2p/crates/files	x4-p2p's files by hash between a person's devices (iroh-blobs)
+x4-p2p-notes	services/p2p/crates/notes	x4-p2p's shared notes: typing together on loro, saved as versions
+x4-p2p-talk	services/p2p/crates/talk	x4-p2p's talks: one kept conversation per group of devices, its lines and who has read them
+x4-p2p-test	services/p2p-test	Runs every P2P test on this computer and writes one PASS or FAIL file (_talk/p2p-test)
+x4-p2p-versions	services/p2p/crates/versions	x4-p2p's versions of a person's folders and notes, between their own devices (gix through x4-versions)
+x4-sessions	services/home/sessions	Every fact this computer holds about every Claude session, one row per session: the home server's sessions reader.
+x4-sessions-snapshot	services/sessions-snapshot	This computer's Claude sessions as the 4x4 sessions pane reads them from another computer: one small program, nothing to install.
+x4-std	services/std	4x4's standard library for Rust: every outside crate our programs use, at one version each, built once as one shared library
+x4-versions	services/versions	Versions of a person's folder, in plain words, with Git underneath (gitoxide)
