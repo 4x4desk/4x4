@@ -2,24 +2,17 @@
 # One line each: crate, the crate holding the old copy, the move that ends it. This list only shrinks.
 # crate	held old by	the move that ends it
 base64	portmapper, tokio-websockets, attohttpc (inside iroh)	iroh 1.5 (portmapper 0.20)
-block-buffer	spake2 0.4	our copy of spake2 on today's crates (built and tested)
 cpufeatures	aes-gcm 0.10 (noq-proto, inside iroh)	iroh 1.5 (aes-gcm 0.11)
 crypto-common	aes-gcm 0.10 (noq-proto, inside iroh)	iroh 1.5 (aes-gcm 0.11)
-curve25519-dalek	spake2 0.4	our copy of spake2 on today's crates
-digest	spake2 0.4, hmac 0.12	our copy of spake2; hmac 0.13 in x4-p2p and x4-engine
-foldhash	hashlink 0.10 (rusqlite)	rusqlite with hashlink 0.12
-getrandom	ring 0.17 (0.2), loro (0.2, 0.3), x4-engine and x4-home (0.2)	getrandom 0.4 in x4-engine and x4-home; loro; ring when its makers move
+getrandom	ring 0.17 (0.2), loro (0.2, 0.3)	loro on today's crates; ring when its makers move
 hash32	postcard 1.1 (inside iroh)	iroh 1.5 (postcard 1.2)
-hashbrown	hashlink 0.10 (rusqlite), clru (gix)	rusqlite with hashlink 0.12; gix update
-heapless	postcard 1.1 (iroh), faster-hex 0.10 (gix), generic-btree (loro)	iroh 1.5; faster-hex 2 in gix; loro
-itertools	loro	our copy of loro on today's crates
+hashbrown	clru (gix)	gix, once gix's next release stops pulling parking_lot ahead of tokio (gix 0.91 adds three doubles: held at 0.90)
+heapless	postcard 1.1 (iroh), faster-hex 0.10 (gix), generic-btree (loro)	iroh 1.5; gix; loro
+itertools	loro	loro on today's crates
 netlink-packet-core	netwatch 0.19 (inside iroh; Linux only)	iroh 1.5 (netwatch 0.20)
 netlink-packet-route	netwatch 0.19 (inside iroh; Linux only)	iroh 1.5 (netwatch 0.20)
 netlink-sys	netwatch 0.19 (inside iroh; Linux only)	iroh 1.5 (netwatch 0.20)
-rand	loro (0.8), x4-p2p (0.9)	rand 0.10 in x4-p2p; loro
-rand_chacha	loro (rand 0.8)	our copy of loro on today's crates
-rand_core	spake2 (0.6), loro (0.6), rand 0.9	our copy of spake2; loro; rand 0.10 in x4-p2p
-sha1	x4-p2p (0.10)	sha1 0.11 in x4-p2p
-sha2	spake2 0.4, x4-engine (0.10)	our copy of spake2; sha2 0.11 in x4-engine
+rand	loro (0.8)	loro on today's crates
+rand_core	loro (0.6 through rand 0.8; 0.9 through imbl)	loro on today's crates
 spin	postcard 1.1 (inside iroh)	iroh 1.5 (postcard 1.2)
-thiserror	loro (1.x)	our copy of loro on today's crates
+thiserror	loro (1.x)	loro on today's crates
