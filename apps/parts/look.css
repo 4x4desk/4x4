@@ -29,7 +29,7 @@
   --radius: calc(8 * var(--u));
   /* over the picture: the glass the bar, the call, help and the control centre share, in every light */
   --over-glass: rgb(28 23 17 / .82);
-  --over-panel: rgb(25 24 19 / .9);
+  --over-panel: rgb(25 24 19);
   --over-ink: #fff4dc;
   --over-soft: #f2dfbb;
   --over-quiet: #d9c49f;

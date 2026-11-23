@@ -6,7 +6,7 @@ It runs on the person's own computer, and what they store stays there.
 
 **Anyone can help turn a website into a sanitized app**: a recipe says which hosts the site may reach, what it may not send, and how it looks. Pick a site from [the list](recipes/README.md#the-sites-people-pick), make its recipe with your own AI agent, and send it ([how](CONTRIBUTING.md#the-easiest-way-in-trim-a-site)). A site that breaks on the desk? [Tell us](https://github.com/4x4desk/4x4/issues/new?template=site-breaks.yml).
 
-New here? Start with [the guide](guide/): seven short pages, for people and AI agents alike.
+New here? Start with [the guide](guide/): seven short pages, for people and AI agents alike. Building something? Start from [the standard library](standard/): the parts already here, web and Rust.
 
 [4x4desk.app](https://4x4desk.app) tells what 4x4 is. This repository holds the open parts of the desk that are ready: the contracts the pieces meet through, the recipes that make sites into apps, the shared parts every app is built from, the first app, and a first workspace.
 
@@ -48,6 +48,7 @@ apps/
   parts/         the shared parts every app is built from, and a starter for a new app
   calculator/    the first app built from the parts
   workspaces/    ready-made workspaces
+standard/        the standard library: what to build from, web and Rust, and how to ask for what is missing
 helpers/         the small tools that build, package and check, in Rust: one program, x4h
 tools/
   check          the check every pull request runs; run it before you send a change

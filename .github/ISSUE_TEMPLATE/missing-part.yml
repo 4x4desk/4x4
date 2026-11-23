@@ -1,0 +1,31 @@
+name: Missing part
+description: Something the standard library doesn't have yet (a web part or a Rust crate).
+labels: ["standard library", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The standard library is everything 4x4's apps and programs are built from: [standard/](https://github.com/4x4desk/4x4/tree/main/standard). Look there first; it may already be there.
+  - type: dropdown
+    id: side
+    attributes:
+      label: Which side
+      options:
+        - The web (HTML, CSS, JavaScript)
+        - Rust
+    validations:
+      required: true
+  - type: textarea
+    id: job
+    attributes:
+      label: What it should do
+      description: The job, and the app or program that needs it.
+    validations:
+      required: true
+  - type: textarea
+    id: start
+    attributes:
+      label: What you'd start from
+      description: A crate, a library or code you know, with its link. Leave empty if you don't know one.
+    validations:
+      required: false
