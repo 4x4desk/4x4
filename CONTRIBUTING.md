@@ -5,18 +5,36 @@ Thank you for looking. This project is young, and every issue and pull request i
 ## Where to start
 
 - **A question, or an idea to talk over:** [Discussions](https://github.com/4x4desk/4x4/discussions).
-- **A bug, an app you'd like, or an app you'd like to build:** open an [issue](https://github.com/4x4desk/4x4/issues/new/choose) and pick its form.
+- **A site that breaks on the desk, a recipe you'd like to make, a bug, an app you'd like, or an app you'd like to build:** open an [issue](https://github.com/4x4desk/4x4/issues/new/choose) and pick its form.
 - **Something to work on:** issues labelled `good first issue` or `help wanted`.
 
 A new issue may get a first reply from an AI helper, which suggests labels and asks for anything missing. It says so at the top, and a person follows.
 
-## The easy way in: one essence app
+## The easiest way in: trim a site
+
+A recipe turns a website into a sanitized app on the desk: the hosts it may reach, what it may not send, how it looks. Anyone can make one with their own AI agent, and every one makes the desk better for everyone who uses that site. [`recipes/`](recipes/) holds them, with the list of sites people pick and how far each has got.
+
+1. **Pick a site.** One from [the list](recipes/README.md#the-sites-people-pick) marked *not checked* or *plain, breaks*, or a site you use every day. Open an "Offer a recipe" issue, so two people don't trim the same site.
+2. **Look at it as it is.** [Get the desk](README.md#get-the-desk), press a dock's +, and add the site: pick it, or type its address. It opens fenced, with no recipe: note what breaks (pictures, sign-in, video, maps) and what you'd rather not see. The dot in the app's corner lists what the desk stopped, by company.
+3. **Make the recipe with your agent.** Hand it [`apps/parts/skill/4x4-app/SKILL.md`](apps/parts/skill/4x4-app/SKILL.md); it reads [`recipe.md`](apps/parts/skill/4x4-app/recipe.md) and writes `recipe.json` (and `style/`, `AGENTS.md`) into the desk's folder for that site, `<data>/4x4/tpa/<id>/` ([`contracts/app`](contracts/app/README.md) says where `<data>` is). The [`kijiji/`](recipes/kijiji/) recipe is a worked example.
+4. **Check it:** `node apps/parts/skill/4x4-app/check-recipe.mjs <the folder>`.
+5. **See it in the desk.** Quit 4x4 and open it again: the desk reads recipes when it starts. Look at the site in light and dark, wide and narrow, signed out, and signed in if it has a sign-in. Fix what you see, and look again.
+6. **Send it.** Copy the folder to `recipes/<id>/` in your fork (`recipe.json`, `style/`, `script/`, `AGENTS.md`: nothing else), change the site's line in [`recipes/README.md`](recipes/README.md), and open a pull request saying what you saw before and after. Pictures help.
+
+What a reviewer refuses:
+- a host in `allow` the site doesn't need, or a glob wider than the site's own (`*`, `*.com`);
+- a script where CSS would do; a script that reads what the person types, sends anything anywhere, or touches a sign-in form;
+- anything in the folder that belongs to you: cookies, tokens, an account name, an address;
+- an `about` that isn't true, a recipe the check refuses, and a recipe nobody has seen in the desk;
+- a change only you would want, such as hiding a part of the site most people use: keep that one in your own folder.
+
+## The next way in: one essence app
 
 An essence app is an app cut down to what a person needs, built from the shared parts.
 
 1. **Pick an app.** An open source app you know, or a tool you use every day. Open an "Offer an essence app" issue to check the idea first.
 2. **Cut it down.** Keep what a person reaches for; leave out the rest.
-3. **Build it from the parts.** An agent making one is handed [`apps/parts/skill/4x4-app/SKILL.md`](apps/parts/skill/4x4-app/SKILL.md); the [`blueprints`](apps/parts/blueprints/) say how to do common jobs. Copy [`apps/parts/starter/`](apps/parts/starter/) to `apps/<your-app>/` and follow [`apps/parts/README.md`](apps/parts/README.md). The calculator ([`apps/calculator/`](apps/calculator/)) is a worked example.
+3. **Build it from the parts.** An agent making one is handed [`apps/parts/skill/4x4-app/SKILL.md`](apps/parts/skill/4x4-app/SKILL.md); the [`blueprints`](blueprints/) say how to do common jobs. Copy [`apps/parts/starter/`](apps/parts/starter/) to `apps/<your-app>/` and follow [`apps/parts/README.md`](apps/parts/README.md). The calculator ([`apps/calculator/`](apps/calculator/)) is a worked example.
 4. **Keep the rules an app keeps** ([`apps/calculator/README.md`](apps/calculator/README.md) › The folder format):
    - one folder, with a `manifest.json` (`name`, `icons`, `start_url`), its page and an `icon.svg`;
    - it reaches nothing outside its folder unless its `manifest.json` lists hosts under `reach`;
@@ -47,7 +65,7 @@ It makes sure every link resolves, no file is over 1 MB, there's no `.DS_Store`,
 ## Send a change
 
 1. Fork the repository and make a branch.
-2. Keep each pull request to one thing: one app, or one fix.
+2. Keep each pull request to one thing: one recipe, one app, or one fix.
 3. Sign off every commit (below).
 4. Open a pull request. Its form asks what it changes and how you checked it.
 

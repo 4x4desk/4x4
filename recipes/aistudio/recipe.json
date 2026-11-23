@@ -1,0 +1,15 @@
+{
+  "id": "aistudio",
+  "name": "Google AI Studio",
+  "home": "https://aistudio.google.com/",
+  "deny": [
+    "*://www.google-analytics.com/*",
+    "*://www.googletagmanager.com/*"
+  ],
+  "capture": [
+    "https://alkalimakersuite-pa.clients6.google.com/$rpc/google.internal.alkali.applications.makersuite.v1.MakerSuiteService/GenerateContent"
+  ],
+  "style": [
+    "style/slim.css"
+  ]
+}

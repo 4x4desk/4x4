@@ -13,6 +13,12 @@ You are the person's own agent, on their computer, in their apps folder. What yo
 - The desk lists every folder with a `manifest.json` that has a `name`, under **Yours** in its app manager, at its next start or the next time Apps opens.
 - Can't tell where the apps folder is? Look for `parts/starter` under `~/Library/Application Support/4x4/AWD/*/data/4x4/apps/` (Mac), `%LOCALAPPDATA%\4x4\apps\` (Windows), `~/.local/share/4x4/apps/` (Linux), and ask the person when there are several.
 
+## Two words
+- **Recipe:** our changes to someone else's site. Data the desk runs.
+- **Blueprint:** how to build something of our own. A page an agent reads before it builds: `<apps>/parts/blueprints/`.
+
+The test: does the desk run it, or does an agent read it?
+
 ## Two kinds of thing you can make
 1. **An app of their own**: a page built from the parts (a list, a planner, a tool, a game). Steps below.
 2. **A site made into an app** (a recipe): a website the person uses, fenced and trimmed. See `recipe.md` in this folder.

@@ -1,0 +1,52 @@
+name: A site that breaks
+description: A website on the desk is missing pictures, won't sign in, or doesn't work.
+labels: ["site breaks", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every site on the desk is fenced: it reaches only its own domain and its maker's. Some sites keep their pictures or code on another domain, and the fence breaks them until a recipe allows it.
+        Your report moves the site's line in [the list](https://github.com/4x4desk/4x4/blob/main/recipes/README.md#the-sites-people-pick). If you'd like to fix it yourself, use "Offer a recipe" instead.
+  - type: input
+    id: site
+    attributes:
+      label: The site
+      description: Its address, and its id if it is in the list.
+      placeholder: https://www.example.org/ (example-org)
+    validations:
+      required: true
+  - type: textarea
+    id: broken
+    attributes:
+      label: What breaks
+      description: What you saw, and what you expected. A screenshot helps. The dot in the app's corner lists what the desk stopped; what it says helps most.
+    validations:
+      required: true
+  - type: dropdown
+    id: recipe
+    attributes:
+      label: With a recipe
+      options:
+        - No recipe, only the fence
+        - With the recipe 4x4 ships
+        - With a recipe of my own
+        - I don't know
+    validations:
+      required: true
+  - type: dropdown
+    id: signin
+    attributes:
+      label: Signed in
+      options:
+        - Signed out
+        - Signed in
+        - The sign-in itself breaks
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: System
+      description: The desk's version (Help › About), the operating system, light or dark.
+    validations:
+      required: true

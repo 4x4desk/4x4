@@ -82,7 +82,7 @@ For an app used on more than one computer at once: a list, a board, a game. `dat
 
 ## For an agent, and the common jobs
 
-An agent making an app, or trimming a site with a recipe, is handed [`skill/4x4-app/SKILL.md`](skill/4x4-app/SKILL.md); the desk lays it, with this folder, on the person's computer. The [`blueprints/`](blueprints/) say the easy way to do a common job, each written from a real app.
+An agent making an app, or trimming a site with a recipe, is handed [`skill/4x4-app/SKILL.md`](skill/4x4-app/SKILL.md); the desk lays it, with this folder, on the person's computer. The [`blueprints/`](../../blueprints/README.md) (laid beside this folder's files as `blueprints/` on the person's computer) say the easy way to do a common job, each written from a real app.
 
 ## How it's made
 

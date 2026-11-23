@@ -4,9 +4,11 @@
 Every app is one folder of plain files that the person, and their own AI agent, can read and change.
 It runs on the person's own computer, and what they store stays there.
 
+**Anyone can help turn a website into a sanitized app**: a recipe says which hosts the site may reach, what it may not send, and how it looks. Pick a site from [the list](recipes/README.md#the-sites-people-pick), make its recipe with your own AI agent, and send it ([how](CONTRIBUTING.md#the-easiest-way-in-trim-a-site)). A site that breaks on the desk? [Tell us](https://github.com/4x4desk/4x4/issues/new?template=site-breaks.yml).
+
 New here? Start with [the guide](guide/): seven short pages, for people and AI agents alike.
 
-[4x4desk.app](https://4x4desk.app) tells what 4x4 is. This repository holds the open parts of the desk that are ready: the contracts the pieces meet through, the shared parts every app is built from, the first app, and a first workspace.
+[4x4desk.app](https://4x4desk.app) tells what 4x4 is. This repository holds the open parts of the desk that are ready: the contracts the pieces meet through, the recipes that make sites into apps, the shared parts every app is built from, the first app, and a first workspace.
 
 ## Get the desk
 
@@ -28,7 +30,7 @@ The desk is built in five layers. Each changes at its own pace and meets the nex
 |---|---|---|
 | 1. Foundation | The browser engine the desk runs on: Firefox, with our patches, compiled and signed | Not here yet |
 | 2. Glue | The window, the bar, the zones, workspaces, the part that runs each app, the installer | Not here yet |
-| 3. Apps | One folder each: a source plus our changes, or a page of our own | [`apps/parts`](apps/parts/), [`apps/calculator`](apps/calculator/) |
+| 3. Apps | One folder each: a source plus our changes, or a page of our own | [`recipes`](recipes/), [`apps/parts`](apps/parts/), [`apps/calculator`](apps/calculator/) |
 | 4. Workspaces | One small file each: which apps, and where | [`apps/workspaces`](apps/workspaces/) |
 | 5. Data | Sign-ins and what each app stores | Never in a repository: it stays on the person's computer |
 
@@ -39,7 +41,9 @@ Building a new app touches layer 3 only. The contracts between the layers are in
 ```
 contracts/       the promises the layers keep to each other
   app/           what an app is: one folder, who writes it, how it updates
+  recipe/        what a recipe is: our changes to a site, so it can be an app
   workspace/     what a workspace is: one small file
+recipes/         one folder per site made into an app, and the list of sites people pick
 apps/
   parts/         the shared parts every app is built from, and a starter for a new app
   calculator/    the first app built from the parts

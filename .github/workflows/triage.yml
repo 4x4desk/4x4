@@ -38,7 +38,7 @@ jobs:
       REPO: ${{ github.repository }}
       NUMBER: ${{ github.event.issue.number }}
       HAS_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
-      AI_LABELS: "bug,app idea,essence app,parts,contracts,docs"
+      AI_LABELS: "bug,site breaks,recipe,app idea,essence app,parts,contracts,docs"
       ALWAYS_LABELS: "needs triage,needs info,ai triaged"
     steps:
       - name: Mark it for a person

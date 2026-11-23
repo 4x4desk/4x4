@@ -1,0 +1,31 @@
+name: Offer a recipe
+description: You'd like to trim a site into a sanitized app on the desk.
+labels: ["recipe", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. A recipe says which hosts a site may reach, what it may not send, and how it looks. [CONTRIBUTING.md › The easiest way in: trim a site](https://github.com/4x4desk/4x4/blob/main/CONTRIBUTING.md#the-easiest-way-in-trim-a-site) says how, step by step.
+        Saying so here first means two people don't trim the same site.
+  - type: input
+    id: site
+    attributes:
+      label: The site
+      description: Its address, and its id if it is in the list.
+      placeholder: https://www.example.org/ (example-org)
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: What you'll change
+      description: What breaks today, if anything, and what you'd take away or make better. A line or two is enough.
+    validations:
+      required: true
+  - type: checkboxes
+    id: ready
+    attributes:
+      label: Before you send it
+      options:
+        - label: I'll check it with check-recipe.mjs and look at it in the desk before I open the pull request.
+          required: true

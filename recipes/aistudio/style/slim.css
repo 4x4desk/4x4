@@ -1,0 +1,12 @@
+/* Google AI Studio in a zone (recipes/aistudio): the speech page without what a zone doesn't need.
+   Hidden: the speech page's example dialogs and voice showcase (its "Create new dialog" card stays: it starts a line),
+   its big welcome line, and the thumbs under a result. Class and element names are Google's and change with its
+   releases; when one stops matching, the page just shows that part again. */
+ms-speech-zero-state .hero-header,
+ms-speech-zero-state mat-card.dialog-example-card,
+ms-speech-zero-state ms-speech-carousel-section ~ ms-speech-carousel-section,
+ms-speech-prompt button[aria-label="Good response"],
+ms-speech-prompt button[aria-label="Bad response"] {
+  display: none !important;
+}
+ms-speech-zero-state .carousel-controls { visibility: hidden; }

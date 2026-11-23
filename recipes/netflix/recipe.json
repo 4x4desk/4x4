@@ -1,0 +1,22 @@
+{
+  "id": "netflix",
+  "name": "Netflix",
+  "home": "https://www.netflix.com/",
+  "drm": true,
+  "allow": [
+    "netflix.com",
+    "*.netflix.com",
+    "*.nflxvideo.net",
+    "*.nflxso.net",
+    "*.nflxext.com",
+    "*.nflximg.net",
+    "*.nflximg.com",
+    "www.google.com",
+    "www.gstatic.com",
+    "fonts.gstatic.com"
+  ],
+  "deny": [
+    "*://logs.netflix.com/*",
+    "*://ichnaea-web.netflix.com/*"
+  ]
+}

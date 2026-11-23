@@ -37,5 +37,5 @@ In the desk's browser storage for the person's apps, on that computer, under `4x
 ## When something else is the better pick
 - **Pictures, recordings, anything large:** IndexedDB in the app, or files. Not a part yet; the app writes it.
 - **Rows to search, sort and join (thousands):** SQLite on the person's computer, through a small local service the app names in its manifest's `reach`. No blueprint yet.
-- **Several people on the same data:** not this. Use `shared()` (`../README.md` › What an app shares).
+- **Several people on the same data:** not this. Use `shared()` (the parts' README, `apps/parts/README.md` › What an app shares).
 - **A site's own data** (its sign-in, what the site stores): stays with the site, in its container. Nothing to do.

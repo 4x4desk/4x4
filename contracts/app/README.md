@@ -35,7 +35,7 @@ The folder is named `tpa` and the file `tpa.json` after an earlier word for an a
 
 - **The site core** (part of the desk's glue layer) reads every folder and runs the app: it refuses what the app's recipe refuses, and lays on its style and scripts. It never writes a folder.
 - **The installer** (the desk's own, and the only one) writes a folder: from the desk's catalogue of apps, from a site's address, or for a workspace being made. It records `from`.
-- **Updates:** the changes 4x4 ships for each app arrive with the desk's UI update, with no recompile. At each start the installer compares each file with `from`: a file still as shipped takes the newer one; a file the person changed stays, and is listed in `yours`.
+- **Updates:** the changes 4x4 ships for each app ([`recipes/`](../../recipes/README.md)) arrive with the desk's UI update, with no recompile. At each start the installer compares each file with `from`: a file still as shipped takes the newer one; a file the person changed stays, and is listed in `yours`.
 - **The person and their agent** may change any file. Their change is the app from then on.
 - **Data** (sign-ins, what the app stores) is not in the folder. It stays in the app's container on that computer, so a folder can be shared without it.
 

@@ -1,8 +1,10 @@
 # contracts/recipe: our changes to a site, so it can be an app
 
-Version 1. One shape for every recipe, ours and the person's. The shape is [`recipe.schema.json`](../../apps/parts/skill/4x4-app/recipe.schema.json) and its check [`check-recipe.mjs`](../../apps/parts/skill/4x4-app/check-recipe.mjs) beside it: `node apps/parts/skill/4x4-app/check-recipe.mjs contracts/recipe/kijiji`. The page an agent reads is [`recipe.md`](../../apps/parts/skill/4x4-app/recipe.md). [`kijiji/`](kijiji/) is a whole recipe, as 4x4 ships it.
+Version 1. One shape for every recipe, ours and the person's. The shape is [`recipe.schema.json`](../../apps/parts/skill/4x4-app/recipe.schema.json) and its check [`check-recipe.mjs`](../../apps/parts/skill/4x4-app/check-recipe.mjs) beside it: `node apps/parts/skill/4x4-app/check-recipe.mjs recipes/kijiji`. The page an agent reads is [`recipe.md`](../../apps/parts/skill/4x4-app/recipe.md). The recipes themselves are in [`recipes/`](../../recipes/README.md); [`kijiji/`](../../recipes/kijiji/) is a whole one.
 
 ## What a recipe is
+A recipe is our changes to someone else's site: data the desk runs. A [blueprint](../../blueprints/README.md) is how to build something of our own: a page an agent reads before it builds. The test: does the desk run it, or does an agent read it?
+
 A site made into an app is one folder (`contracts/app`): its `tpa.json` says which site, and its **recipe** says what we change. With no recipe the site is still fenced: it reaches only its own domain and its maker's, and nothing else of the internet. A recipe adds, in order of how far it goes:
 
 | Step | What the person gets | Keys |
@@ -43,6 +45,14 @@ A glob's `*` matches any run of characters, dots and slashes too; nothing else i
 
 Every key but `id`, `name` and `home` is optional. A key not in this table is refused by the check: one shape, so a reader of any recipe knows every recipe.
 
+## Where a recipe comes from
+One folder shape, `<id>/` with its `recipe.json`, at three levels. The person chooses which they take; nothing is pushed on them.
+1. **The public repository's `recipes/`**: reviewed in the open, carried by the desk to everyone.
+2. **A network's own repository**: the same folders, shared among one group's computers and nobody else's. Not built yet.
+3. **The person's folder**: `<data>/4x4/tpa/<id>/`. This is the copy the desk runs. A recipe from the other levels is laid into it; a file the person or their agent changed stays theirs through every update (`contracts/app` › Ours, yours and back to stock).
+
+A recipe is the same shape at every level, so it moves between them by copying the folder.
+
 ## Who reads it
 - **The desk's site core** runs the app by it: refuses what it refuses, copies what it captures, lays its style and script.
 - **The desk's installer** lays `recipe.json`, the files it names and `AGENTS.md` into `<data>/4x4/tpa/<id>/`, and keeps the person's changes on our updates ([`contracts/app`](../app/README.md)).
@@ -53,6 +63,6 @@ Every key but `id`, `name` and `home` is optional. A key not in this table is re
 2. `deny` what the site sends about the person (its beacons, its ads), found in the requests the desk refuses or lets through.
 3. `style`: hide what the person doesn't want. Prefer hiding to rewriting; a script only for what CSS can't do.
 4. Keep `about` true; put the reasons in `AGENTS.md`.
-5. `node contracts/recipe/check.mjs <folder>`.
+5. `node apps/parts/skill/4x4-app/check-recipe.mjs <folder>`, then quit the desk and open it again: it reads recipes when it starts.
 
-4x4 ships recipes for sites such as Kijiji (fenced, slimmed, dark), YouTube (reshaped, with a page of ours beside it), Netflix (fenced, protected video) and Google AI Studio (slimmed, captured).
+4x4 ships recipes for sites such as Kijiji (fenced, slimmed, dark), YouTube (reshaped, with a page of ours beside it), Netflix (fenced, protected video) and Google AI Studio (slimmed, captured). Sending one: [`CONTRIBUTING.md`](../../CONTRIBUTING.md#the-easiest-way-in-trim-a-site) › Trim a site.

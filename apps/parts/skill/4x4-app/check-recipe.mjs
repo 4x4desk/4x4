@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 const HERE = dirname(fileURLToPath(import.meta.url)), ROOT = join(HERE, '..', '..', '..', '..');
 const schema = JSON.parse(readFileSync(join(HERE, 'recipe.schema.json'), 'utf8'));
 const KEPT = new Set(['recipe.json', 'style', 'script', 'AGENTS.md', 'README.md', 'tools', 'drive.json', 'tpa.json', 'yours.json', 'icon.png', 'icon.svg']);   // the last two: the desk's, in a person's folder
-const folders = process.argv.length > 2 ? process.argv.slice(2) : !existsSync(join(ROOT, 'essences', 'recipes')) ? (console.error('Say which recipe folder: node check-recipe.mjs <folder>'), process.exit(2)) : readdirSync(join(ROOT, 'essences', 'recipes')).map(n => join(ROOT, 'essences', 'recipes', n)).filter(p => statSync(p).isDirectory());
+const folders = process.argv.length > 2 ? process.argv.slice(2) : !existsSync(join(ROOT, 'recipes')) ? (console.error('Say which recipe folder: node check-recipe.mjs <folder>'), process.exit(2)) : readdirSync(join(ROOT, 'recipes')).map(n => join(ROOT, 'recipes', n)).filter(p => statSync(p).isDirectory());
 
 function fits(v, s, at, out) {
   const type = Array.isArray(v) ? 'array' : v === null ? 'null' : typeof v;
