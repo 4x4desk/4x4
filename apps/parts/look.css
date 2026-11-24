@@ -1,22 +1,25 @@
 /* Generated from 4x4's design tokens: a change belongs in the tokens, not in this file. */
-/* THE SIZES: two numbers a person sets on this screen (frame size.js keeps them on this device):
-     --size  Everything: icons, spacing, panels, the topbar (1 = as designed, for a 4K screen)
-     --text  Text, on top of --size
-   Every length is calc(N * var(--u)), every text size calc(N * var(--t)). The only bare px are the
-   three thin lines: a hairline, a rule and a ring stay thin at every size.
+/* THE SIZES: one base every length and text size is made from.
+     --fit   automatic: this screen against the one the look was drawn for (2560 x 1440 points: a 4K screen
+             at 150%, a 5K Mac); 0.75 on 1920 x 1080. frame size.js sets it from the screen, 0.75 to 1.5
+     --size  the person's Size: everything but the words (icons, spacing, panels, the bar), on top of --fit
+     --text  the person's Text: the words alone, on top of --fit; the two are separate
+     Both are 1 until the person moves them, anywhere in --size-range (frame size.js keeps them on this device)
+   Every length is calc(N * var(--u)), every text size calc(N * var(--t)); no bare px. The three thin lines
+   (a hairline, a rule and a ring) grow with the rest and never go under one pixel.
    THE LIGHT: golden hour (light) or last light (dark), the sandstone look; the computer's choice unless the
    person picks one (size.js sets theme="light|dark" on the root). theme="green" is the earlier look. */
 :root {
   --size: 1;
   --text: 1;
-  --u: calc(1px * var(--size));
-  --t: calc(1px * var(--size) * var(--text));
-  --everything-choices: "0.75 1 1.25 1.5 1.75 2";
-  --text-choices: "1 1.15 1.3 1.5";
+  --fit: 1;
+  --u: calc(1px * var(--fit) * var(--size));
+  --t: calc(1px * var(--fit) * var(--text));
+  --size-range: "0.5 2 0.05";   /* the least, the most, the step */
   --theme-choices: "auto light dark";
-  --hair: 1px;
-  --rule: 1.5px;
-  --ring: 2px;
+  --hair: max(1px, calc(1 * var(--u)));
+  --rule: max(1px, calc(1.5 * var(--u)));
+  --ring: max(1px, calc(2 * var(--u)));
   /* a light wash lifts a card, row or button; a dark well sinks a field; a shade is a drop shadow */
   --dark: 0 0 0;
   --wash-faint: rgb(var(--light) / 0.04);
@@ -44,7 +47,7 @@
   --over-stop: #b3402a;
   --over-stop-hover: #c74a31;
   --over-veil-rgb: 255 240 210;   /* any other see-through veil: rgb(var(--over-veil-rgb) / .2) */
-  --over-blur: blur(12px);
+  --over-blur: blur(calc(12 * var(--u)));
   /* the main shape takes the first four zone colours, in zoneOrder */
   --zone-left: var(--zone-0);
   --zone-centre: var(--zone-1);

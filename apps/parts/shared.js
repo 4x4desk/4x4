@@ -117,6 +117,7 @@ function framed() {
     look = m;
     frame.contentWindow?.postMessage(look, '*');
   });
+  let wait = 2000;   // x4-p2p not answering: asked again 4 s, 8 s… up to 30 s apart, not every 4 s forever
   (async function find() {
     // a port written beside the parts (parts/x4-p2p-port, one number) is tried first: a computer whose x4-p2p is elsewhere
     const named = Number(await fetch(new URL('../parts/x4-p2p-port', location.href), { cache: 'no-store' }).then(r => (r.ok ? r.text() : ''), () => '')) || 0;
@@ -126,7 +127,7 @@ function framed() {
       return;
     }
     note.textContent = 'This app shares through x4-p2p, which isn\u2019t answering on this computer (or is from before 2026-11-19). It tries again on its own.';
-    setTimeout(find, 4000);
+    setTimeout(find, wait = Math.min(wait * 2, 30000));
   })();
   return new Promise(() => {});   // never: the app carries on in x4-p2p's copy, not in this one
 }

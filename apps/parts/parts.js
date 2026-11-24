@@ -12,7 +12,8 @@
 //                with the arrow keys; kept for the next visit when the split has an id. <app-split turns>: when
 //                narrow, the two parts take turns (at="main" shows the main one), as a list and the thing opened;
 //   - rows:      <app-row press> is pressed with Enter or Space too, and the arrow keys move between a list's rows.
-// And to import:  say(text, kind, act)   a line over the app for a moment, so every press is answered on screen;
+// And to import:  every(ms, fn), retry(fn)   repeated work only while seen; retries further apart (below)
+//                 say(text, kind, act)   a line over the app for a moment, so every press is answered on screen;
 //                                        act { text: 'Undo', run } puts one button on it and keeps it up longer
 //                 el(tag, attrs, ...kids)   an element in one line
 //                 data(id)   what the app keeps on this computer (below, "what an app keeps")
@@ -39,6 +40,41 @@ if (hosted) parent.postMessage({ x4: 'ready' }, '*'); else root.setAttribute('al
 // a host that never answers (a frame inside a page that isn't a desk): the app shows with its own values and its own
 // background, as when opened alone, so its ink is never left on someone else's colour
 setTimeout(() => { if (hosted && !heard) root.setAttribute('alone', ''); shown(); }, hosted ? 500 : 0);
+
+// ---- work again and again, only while someone can see it: every(15000, refresh) ----
+// The one way an app repeats work (way, 11-24: what isn't in front shouldn't be using the computer). While the page
+// can't be seen (another app in front in its zone, the zone shut, the desk minimised or covered) there is no timer at
+// all; once seen again, a run that came due meanwhile happens at once, then the beat goes on. Never to ask again for
+// news: an app hears changes as events (x4-p2p's listen rings "changed"); this is for what ticks while seen (a clock).
+// Returns stop(). { now: true } runs once at the start too.
+export function every(ms, fn, { now = false } = {}) {
+  let t = 0, last = Date.now();
+  const run = () => { last = Date.now(); fn(); };
+  const go = () => {
+    clearInterval(t); t = 0;
+    if (document.hidden) return;
+    if (Date.now() - last >= ms) run();
+    t = setInterval(run, ms);
+  };
+  if (now) run();
+  go();
+  document.addEventListener('visibilitychange', go);
+  return () => { clearInterval(t); document.removeEventListener('visibilitychange', go); };
+}
+// ---- try again, further apart each time, sooner when seen: retry(find) where find() returns true when done ----
+// For a service that isn't answering (x4-p2p, an engine): 4 s, 8 s, 16 s… up to a minute; and at once whenever the
+// page is seen again. Never a fixed short beat forever.
+export function retry(fn, { first = 4000, most = 60000 } = {}) {
+  let wait = first, t = 0, done = false;
+  const again = async () => {
+    clearTimeout(t); t = 0;
+    if (done || document.hidden) return;
+    if (await fn()) { done = true; document.removeEventListener('visibilitychange', again); return; }
+    t = setTimeout(again, wait); wait = Math.min(wait * 2, most);
+  };
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) { wait = first; again(); } });
+  return again;
+}
 
 // ---- an element in one line: el('button', { primary: '', text: 'Save', onclick: save }) ----
 export function el(tag, attrs = {}, ...kids) {

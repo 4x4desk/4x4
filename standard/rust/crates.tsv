@@ -91,7 +91,7 @@ genawaiter	0.99.1	x4-p2p x4-p2p-files x4-std
 genawaiter-macro	0.99.1	x4-p2p x4-p2p-files x4-std	
 generator	0.8.11	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 generic-array	0.14.7	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-generic-btree	0.10.8	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
+generic-btree	0.10.8(our copy)	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 getrandom	0.2.17 0.3.4 0.4.3	x4-door x4-engine x4-home x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std x4-versions	yes
 ghash	0.5.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 gix	0.90.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std x4-versions	yes
@@ -164,7 +164,7 @@ idna	1.1.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p
 idna_adapter	1.2.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 if-addrs	0.15.0	x4-home x4-p2p x4-sessions x4-std	yes
 igd-next	0.17.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-imbl	7.0.2	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
+imbl	7.0.2(our copy)	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 imbl-sized-chunks	0.2.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 indexmap	2.14.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 inout	0.1.4	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
@@ -181,7 +181,7 @@ iroh-relay	1.4.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-tal
 iroh-tickets	1.0.0	x4-p2p x4-p2p-files x4-std	
 iroh-util	0.7.0	x4-p2p x4-p2p-files x4-std	
 irpc	1.0.0	x4-p2p x4-p2p-files x4-std	
-itertools	0.11.0 0.12.1	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
+itertools	0.15.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 itoa	1.0.18	x4-door x4-engine x4-home x4-identity x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-sessions-snapshot x4-std x4-versions	
 jiff	0.2.46	x4-p2p x4-p2p-notes x4-p2p-versions x4-std x4-versions	
 jiff-core	0.1.8	x4-p2p x4-p2p-notes x4-p2p-versions x4-std x4-versions	
@@ -200,13 +200,13 @@ lock_api	0.4.14	x4-door x4-home x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-
 log	0.4.34	x4-door x4-engine x4-home x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std	
 loom	0.7.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 loro	1.18.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	yes
-loro-common	1.18.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
-loro-delta	1.18.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
-loro-internal	1.18.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
+loro-common	1.18.0(our copy)	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
+loro-delta	1.18.0(our copy)	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
+loro-internal	1.18.0(our copy)	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 loro-kv-store	1.18.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 loro-rle	1.6.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 loro-thunderdome	0.6.2	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
-loro_fractional_index	1.18.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
+loro_fractional_index	1.18.0(our copy)	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 lru	0.18.5	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 lru-slab	0.1.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 lz4_flex	0.11.7	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
@@ -273,7 +273,6 @@ positioned-io	0.3.5	x4-p2p x4-p2p-files x4-std
 postcard	1.1.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 potential_utf	0.1.6	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 powerfmt	0.2.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-ppv-lite86	0.2.21	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 pretty_assertions	1.4.1	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 proc-macro2	1.0.107	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 prodash	31.0.1	x4-p2p x4-p2p-notes x4-p2p-versions x4-std x4-versions	
@@ -281,11 +280,10 @@ qrcode	0.14.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x
 quick-xml	0.42.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 quick_cache	0.6.24	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 r-efi	5.3.0 6.0.0	x4-door x4-engine x4-home x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std x4-versions	
-rand	0.10.3 0.8.8	x4-door x4-engine x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	yes
-rand_chacha	0.3.1	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
-rand_core	0.10.1 0.6.4 0.9.5	x4-door x4-engine x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+rand	0.10.3	x4-door x4-engine x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	yes
+rand_core	0.10.1	x4-door x4-engine x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 rand_pcg	0.10.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-rand_xoshiro	0.7.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
+rand_xoshiro	0.8.2	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 range-collections	0.4.6	x4-p2p x4-p2p-files x4-std	
 redb	4.6.0	x4-p2p x4-p2p-files x4-std	
 redox_syscall	0.5.18	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std x4-versions	
@@ -318,7 +316,7 @@ self_cell	1.3.0	x4-p2p x4-p2p-files x4-std
 send_wrapper	0.6.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 serde	1.0.229	x4-door x4-engine x4-home x4-identity x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-sessions-snapshot x4-std x4-versions	yes
 serde_bytes	0.11.19	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-serde_columnar	0.3.14	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
+serde_columnar	0.3.14(our copy)	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 serde_core	1.0.229	x4-door x4-engine x4-home x4-identity x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-sessions-snapshot x4-std x4-versions	
 serde_json	1.0.154	x4-door x4-engine x4-home x4-identity x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-sessions-snapshot x4-std x4-versions	yes
 serdect	0.4.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
