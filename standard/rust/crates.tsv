@@ -15,7 +15,6 @@ arref	0.1.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std
 async_io_stream	0.3.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 atomic-polyfill	1.0.3	x4-p2p x4-p2p-files x4-p2p-notes x4-p2p-versions x4-std	
 atomic-waker	1.1.2	x4-door x4-home x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std	
-attohttpc	0.30.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 backon	1.6.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 bao-tree	0.17.0	x4-p2p x4-p2p-files x4-std	
 base16ct	1.0.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
@@ -163,7 +162,7 @@ identity-hash	0.1.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-
 idna	1.1.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 idna_adapter	1.2.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 if-addrs	0.15.0	x4-home x4-p2p x4-sessions x4-std	yes
-igd-next	0.17.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+igd-next	0.18.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 imbl	7.0.2(our copy)	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 imbl-sized-chunks	0.2.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 indexmap	2.14.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
@@ -171,13 +170,13 @@ inout	0.1.4	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-
 inplace-vec-builder	0.1.1	x4-p2p x4-p2p-files x4-std	
 ipconfig	0.3.4	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 ipnet	2.12.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-iroh	1.4.1(our copy)	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	yes
-iroh-base	1.4.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+iroh	1.5.0(our copy)	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	yes
+iroh-base	1.5.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 iroh-blobs	0.105.0(our copy)	x4-p2p x4-p2p-files x4-std	yes
-iroh-dns	1.4.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+iroh-dns	1.5.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 iroh-io	0.6.2	x4-p2p x4-p2p-files x4-std	
 iroh-metrics	1.0.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-iroh-relay	1.4.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+iroh-relay	1.5.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 iroh-tickets	1.0.0	x4-p2p x4-p2p-files x4-std	
 iroh-util	0.7.0	x4-p2p x4-p2p-files x4-std	
 irpc	1.0.0	x4-p2p x4-p2p-files x4-std	
@@ -207,7 +206,7 @@ loro-kv-store	1.18.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std
 loro-rle	1.6.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 loro-thunderdome	0.6.2	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 loro_fractional_index	1.18.0(our copy)	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
-lru	0.18.5	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+lru	0.19.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 lru-slab	0.1.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 lz4_flex	0.11.7	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 mac-addr	0.3.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
@@ -217,22 +216,22 @@ mdns-sd	0.21.7	x4-home x4-p2p x4-sessions x4-std	yes
 memchr	2.8.3	x4-door x4-engine x4-home x4-identity x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-sessions-snapshot x4-std x4-versions	
 memmap2	0.9.12	x4-p2p x4-p2p-notes x4-p2p-versions x4-std x4-versions	
 mio	1.2.4	x4-door x4-home x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std	
-n0-dns-resolver	0.1.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+n0-dns-resolver	0.1.1(our copy)	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 n0-error	1.0.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 n0-future	0.3.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	yes
 n0-watcher	1.0.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 ndk-context	0.1.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-netdev	0.45.1 0.46.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-netlink-packet-core	0.8.2 0.9.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-netlink-packet-route	0.31.0 0.33.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-netlink-proto	0.12.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-netlink-sys	0.8.8 0.9.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-netwatch	0.19.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+netdev	0.47.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+netlink-packet-core	0.9.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+netlink-packet-route	0.33.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+netlink-proto	0.13.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+netlink-sys	0.9.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+netwatch	0.20.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 nonempty	0.12.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std x4-versions	
 nonmax	0.5.5	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
-noq	1.4.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-noq-proto	1.4.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-noq-udp	1.4.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+noq	1.5.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+noq-proto	1.5.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+noq-udp	1.5.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 nu-ansi-term	0.50.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 num	0.4.3	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
 num-bigint	0.4.8	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
@@ -245,11 +244,8 @@ num-traits	0.2.19	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-ta
 num_enum	0.7.6	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 objc2	0.6.5	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 objc2-core-foundation	0.3.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-objc2-core-wlan	0.3.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 objc2-encode	4.1.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-objc2-foundation	0.3.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 objc2-security	0.3.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-objc2-security-foundation	0.3.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 objc2-system-configuration	0.3.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 once_cell	1.21.4	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std x4-versions	
 opaque-debug	0.3.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
@@ -268,9 +264,9 @@ plist	1.10.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4
 polyval	0.6.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 portable-atomic	1.15.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std x4-versions	
 portable-atomic-util	0.2.8	x4-p2p x4-p2p-notes x4-p2p-versions x4-std x4-versions	
-portmapper	0.19.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+portmapper	0.20.2	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 positioned-io	0.3.5	x4-p2p x4-p2p-files x4-std	
-postcard	1.1.3	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+postcard	1.2.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 potential_utf	0.1.6	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 powerfmt	0.2.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 pretty_assertions	1.4.1	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
@@ -330,7 +326,7 @@ signature	3.0.0	x4-door x4-engine x4-home x4-identity x4-p2p x4-p2p-base x4-p2p-
 simd_cesu8	1.2.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 simdutf8	0.1.5	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 similar	2.7.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std x4-versions	yes
-simple-dns	0.12.0	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
+simple-dns	0.13.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 slab	0.4.12	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std	
 slotmap	1.1.1	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 smallvec	1.16.4	x4-door x4-engine x4-home x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std x4-versions	
@@ -381,7 +377,7 @@ utf8_iter	1.0.4	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk
 walkdir	2.5.0	x4-p2p x4-p2p-notes x4-p2p-versions x4-std x4-versions	
 want	0.3.2	x4-door x4-home x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std	
 wasi	0.11.1+wasi-snapshot-preview1	x4-door x4-home x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std	
-wasip2	1.0.4+wasi-0.2.12	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
+wasip2	1.0.4+wasi-0.2.12	x4-p2p x4-p2p-notes x4-p2p-versions x4-std x4-versions	
 wasm-bindgen	0.2.129	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std	
 wasm-bindgen-futures	0.4.79	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 wasm-bindgen-shared	0.2.129	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-sessions x4-std	
@@ -416,7 +412,7 @@ windows_i686_msvc	0.42.2 0.52.6	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-n
 windows_x86_64_gnu	0.42.2 0.52.6	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 windows_x86_64_gnullvm	0.42.2 0.52.6	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 windows_x86_64_msvc	0.42.2 0.52.6	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
-wit-bindgen	0.57.1	x4-p2p x4-p2p-notes x4-p2p-versions x4-std	
+wit-bindgen	0.57.1	x4-p2p x4-p2p-notes x4-p2p-versions x4-std x4-versions	
 wmi	0.18.4	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 writeable	0.6.4	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	
 ws_stream_wasm	0.7.5	x4-door x4-p2p x4-p2p-base x4-p2p-files x4-p2p-notes x4-p2p-talk x4-p2p-versions x4-std	

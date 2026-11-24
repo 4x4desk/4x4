@@ -1,14 +1,11 @@
 # Crates that still reach a program at two versions (standard/rust/crates --check fails on any other).
 # One line each: crate, the crate holding the old copy, the move that ends it. This list only shrinks.
 # crate	held old by	the move that ends it
-base64	portmapper, tokio-websockets, attohttpc (inside iroh)	iroh 1.5 (portmapper 0.20)
-cpufeatures	aes-gcm 0.10 (noq-proto, inside iroh)	iroh 1.5 (aes-gcm 0.11)
-crypto-common	aes-gcm 0.10 (noq-proto, inside iroh)	iroh 1.5 (aes-gcm 0.11)
+base64	tokio-websockets (iroh-relay)	tokio-websockets (iroh-relay), when it moves to base64 0.23
+cpufeatures	aes-gcm 0.10 (noq-proto, inside iroh)	noq-proto (iroh), when it moves to aes-gcm 0.11
+crypto-common	aes-gcm 0.10 (noq-proto, inside iroh)	noq-proto (iroh), when it moves to aes-gcm 0.11
 getrandom	ring 0.17 (0.2), ahash 0.8 through quick_cache (0.3)	ring and ahash when their makers move
-hash32	postcard 1.1 (inside iroh)	iroh 1.5 (postcard 1.2)
+hash32	postcard 1.2 (iroh, iroh-blobs, loro)	postcard, when it moves past heapless 0.7
 hashbrown	clru (gix), quick_cache (iroh-blobs, loro)	gix, once its next release stops pulling parking_lot ahead of tokio (0.91 adds three doubles: held at 0.90); quick_cache
-heapless	postcard 1.1 (iroh), faster-hex 0.10 (gix)	iroh 1.5 (postcard 1.2); gix
-netlink-packet-core	netwatch 0.19 (inside iroh; Linux only)	iroh 1.5 (netwatch 0.20)
-netlink-packet-route	netwatch 0.19 (inside iroh; Linux only)	iroh 1.5 (netwatch 0.20)
-netlink-sys	netwatch 0.19 (inside iroh; Linux only)	iroh 1.5 (netwatch 0.20)
-spin	postcard 1.1 (inside iroh)	iroh 1.5 (postcard 1.2)
+heapless	postcard 1.2 (iroh), faster-hex 0.10 (gix)	postcard, when it moves past heapless 0.7; gix
+spin	postcard 1.2 (iroh, iroh-blobs, loro)	postcard, when it moves past heapless 0.7
